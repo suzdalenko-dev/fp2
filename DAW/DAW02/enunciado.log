@@ -1,0 +1,42 @@
+1. Configurar un virtualhost basado en nombre denominado empresa-tarea-daw02 
+    que permita el acceso de la página web de la empresa en Internet al directorio del servidor web: 
+    todo-empresa-tarea-daw02
+
+
+2. Hacer accesible a través de Internet las siguientes URL que identifican a la empresa:
+www.empresa-tarea-daw02.local y empresa-tarea-daw02.local
+
+
+3. Configurar en el servidor el tipo MIME posible que permite la identificación correcta del vídeo presentación
+ formato flv situado dentro del directorio videos y de nombre entrada.flv.
+
+
+4. Crear el subdirectorio todo-empresa-tarea-daw02/delimitado teniendo en cuenta que:
+    El directorio todo-empresa-tarea-daw02 permite el acceso a cualquier usuario.
+    El subdirectorio todo-empresa-tarea-daw02/delimitado permite el acceso solamente al personal de la empresa que
+    tenga el rol: admin. 
+
+
+5. Pemitir el protocolo HTTPS en el virtualhost empresa-tarea-daw02
+
+
+6. Configurar los archivos de registro como sigue:
+Identificación log de acceso: empresa-tarea-daw02-access.log
+Identificación log de error: empresa-tarea-daw02-error.log
+Alias logformat: combined
+
+
+7. Rotar logs por intervalo temporal: cada 24horas.
+
+NOTAS IMPORTANTES:
+
+Los dominios .local no existen en Internet, con lo cual la tarea se comprobará en red local. 
+Así para que las URL fuesen visibles en Internet realmente habría que comprar el dominio, 
+dirigirlo a la IP del servidor web y expandirlo mediante Servidores DNS.
+
+Para la solución de la tarea simular la página web con dos archivos HTML:
+Uno de nombre index.html en la raiz del directorio todo-empresa-tarea-daw02 que contenga el texto 'ACCESO NO LIMITADO'.
+Uno de nombre index.html en la raiz del directorio todo-empresa-tarea-daw02/delimitado que contenga el texto 
+'ACCESO LIMITADO'.
+La entrega de cada apartado de la tarea consiste en indicar el archivo a configurar junto con el código
+ necesario para resolver la cuestión correspondiente.

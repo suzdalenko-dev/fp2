@@ -1,0 +1,64 @@
+Para configurar un VirtualHost basado en nombre en Ubuntu Desktop en VirtualBox, sigue estos pasos:
+
+Paso 1: Instalar Apache
+Si no tienes Apache instalado, instálalo con el siguiente comando:
+
+bash
+Copiar código
+sudo apt update
+sudo apt install apache2 -y
+Paso 2: Crear el Directorio para el Sitio Web
+Crea el directorio donde estará la página de la empresa:
+
+bash
+Copiar código
+sudo mkdir -p /var/www/todo-empresa-tarea-daw02
+Asigna permisos al directorio:
+
+bash
+Copiar código
+sudo chown -R $USER:$USER /var/www/todo-empresa-tarea-daw02
+sudo chmod -R 755 /var/www/todo-empresa-tarea-daw02
+Paso 3: Crear un Archivo de Prueba (Opcional)
+Crea un archivo index.html para verificar que el VirtualHost funcione:
+
+bash
+Copiar código
+echo "<h1>Bienvenido a Empresa Tarea DAW02</h1>" | sudo tee /var/www/todo-empresa-tarea-daw02/index.html
+Paso 4: Configurar el VirtualHost
+Crea el archivo de configuración de VirtualHost:
+
+bash
+Copiar código
+sudo nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
+Añade la configuración del VirtualHost en el archivo:
+
+apache
+Copiar código
+<VirtualHost *:80>
+    ServerAdmin webmaster@empresa-tarea-daw02.com
+    ServerName todo-empresa-tarea-daw02
+    DocumentRoot /var/www/todo-empresa-tarea-daw02
+    ErrorLog ${APACHE_LOG_DIR}/empresa-tarea-daw02-error.log
+    CustomLog ${APACHE_LOG_DIR}/empresa-tarea-daw02-access.log combined
+</VirtualHost>
+Guarda y cierra el archivo.
+
+Paso 5: Habilitar el VirtualHost y Reiniciar Apache
+Habilita el sitio y reinicia Apache:
+
+bash
+Copiar código
+sudo a2ensite empresa-tarea-daw02.conf
+sudo systemctl restart apache2
+Paso 6: Configurar el Archivo Hosts en Ubuntu
+Para acceder al sitio usando http://todo-empresa-tarea-daw02, añade una entrada en el archivo hosts:
+
+bash
+Copiar código
+sudo nano /etc/hosts
+Agrega esta línea al final del archivo:
+
+Copiar código
+127.0.0.1   todo-empresa-tarea-daw02
+Guarda y cierra el archivo.
