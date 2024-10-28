@@ -52,16 +52,43 @@ Puedes crear una página HTML sencilla para probar si el vídeo se carga correct
 bash
 Copiar código
 echo "<video controls>
-        <source src='/ruta/a/videos/entrada.flv' type='video/x-flv'>
+        <source src='/entrada.flv' type='video/x-flv'>
         Tu navegador no soporta la etiqueta de vídeo.
       </video>" | sudo tee /var/www/html/prueba_video.html
 Acceder a la Página de Prueba:
 
 
+
+
+
 COPIAR EL ARCHIVO
 sudo cp /home/vboxuser/downloads/entrada.mp4 /var/www/html/
 
-Abre tu navegador y ve a http://localhost/prueba_video.html. Si la configuración del tipo MIME es correcta, el vídeo debería cargar sin problemas.
 
-Resumen
-Siguiendo estos pasos, habrás configurado el tipo MIME adecuado para el formato FLV en tu servidor Apache, lo que permitirá que el archivo entrada.flv se sirva correctamente. Si necesitas más información o tienes alguna duda, no dudes en preguntar. ¡Buena suerte con tu tarea!
+
+
+
+COMO CONFIGURAR TIPE MIME para .flv
+Abre el archivo de configuración de tipos MIME de Apache:
+
+bash
+Copiar código
+sudo nano /etc/apache2/conf-available/mime.conf
+Dentro del archivo, agrega esta línea al final para definir el tipo MIME para .flv:
+
+apache
+Copiar código
+AddType video/x-flv .flv
+Guarda y cierra el archivo (Ctrl + O para guardar y Ctrl + X para salir en Nano).
+
+Habilita la configuración de MIME si no está habilitada (en la mayoría de los casos debería estarlo):
+
+bash
+Copiar código
+sudo a2enconf mime
+Reinicia Apache para aplicar los cambios:
+
+bash
+Copiar código
+sudo systemctl restart apache2
+
