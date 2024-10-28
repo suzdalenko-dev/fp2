@@ -1,0 +1,65 @@
+2. Hacer accesible a través de Internet las siguientes URL que identifican a la empresa:
+www.empresa-tarea-daw02.local y empresa-tarea-daw02.local
+
+Paso 1: Configuración de Apache
+Instalar Apache (si no lo has hecho):
+
+bash
+Copiar código
+sudo apt update
+sudo apt install apache2 -y
+Crear un Directorio para el Sitio Web:
+
+bash
+Copiar código
+sudo mkdir -p /var/www/empresa-tarea-daw02
+Configurar Permisos:
+
+bash
+Copiar código
+sudo chown -R $USER:$USER /var/www/empresa-tarea-daw02
+sudo chmod -R 755 /var/www/empresa-tarea-daw02
+Crear un Archivo de Prueba:
+
+bash
+Copiar código
+echo "<h1>Bienvenido a Empresa Tarea DAW02</h1>" | sudo tee /var/www/empresa-tarea-daw02/index.html
+Configurar Virtual Hosts:
+
+Crea un archivo de configuración para el VirtualHost:
+
+bash
+Copiar código
+sudo nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
+Agrega la siguiente configuración:
+
+apache
+Copiar código
+<VirtualHost *:80>
+    ServerName empresa-tarea-daw02.local
+    ServerAlias www.empresa-tarea-daw02.local
+    DocumentRoot /var/www/empresa-tarea-daw02
+    ErrorLog ${APACHE_LOG_DIR}/empresa-tarea-daw02-error.log
+    CustomLog ${APACHE_LOG_DIR}/empresa-tarea-daw02-access.log combined
+</VirtualHost>
+Guarda y cierra el archivo.
+
+Habilitar el Virtual Host y Reiniciar Apache:
+
+bash
+Copiar código
+sudo a2ensite empresa-tarea-daw02.conf
+sudo systemctl restart apache2
+Paso 2: Modificar el Archivo hosts
+Editar el Archivo hosts:
+Abre el archivo hosts:
+
+bash
+Copiar código
+sudo nano /etc/hosts
+Agrega las siguientes líneas al final del archivo:
+
+plaintext
+Copiar código
+127.0.0.1   empresa-tarea-daw02.local
+127.0.0.1   www.empresa-tarea-daw02.local
