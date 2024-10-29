@@ -48,3 +48,16 @@ bash
     Verifica la configuración: En el navegador, accede a https://empresa-tarea-daw02 para confirmar que HTTPS está habilitado.
 
 Esto configurará el virtual host empresa-tarea-daw02 con soporte para HTTPS usando un certificado SSL.
+
+
+Abre el archivo /etc/hosts para editarlo:
+
+bash
+
+sudo nano /etc/hosts
+
+Agrega la entrada para empresa-tarea-daw02:
+
+plaintext
+
+127.0.0.1   empresa-tarea-daw02
