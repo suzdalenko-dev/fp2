@@ -1,0 +1,53 @@
+7. Rotar logs por intervalo temporal: cada 24horas
+
+Para rotar los archivos de logs de Apache cada 24 horas en Ubuntu, puedes utilizar logrotate, una herramienta que ya suele estar preconfigurada en sistemas Linux para manejar la rotación de logs.
+Paso 1: Configurar logrotate para Apache
+
+    Abre el archivo de configuración de logrotate para Apache, que generalmente se encuentra en /etc/logrotate.d/apache2:
+
+    bash
+
+sudo nano /etc/logrotate.d/apache2
+
+Configura la rotación diaria y otros ajustes. Modifica el archivo para asegurarte de que se rota cada 24 horas. Un archivo de configuración típico puede verse así:
+
+plaintext
+
+    /var/log/apache2/*.log {
+        daily                   # Rota los logs diariamente
+        missingok               # No muestra errores si el archivo falta
+        rotate 7                # Mantiene los últimos 7 días de logs
+        compress                # Comprime los archivos antiguos
+        delaycompress           # Retrasa la compresión de un archivo hasta el próximo ciclo de rotación
+        notifempty              # No rota archivos vacíos
+        create 640 root adm     # Establece permisos y propietario
+        sharedscripts           # Ejecuta los scripts solo una vez por ciclo de rotación
+
+        postrotate
+            if [ -f /var/run/apache2/apache2.pid ]; then
+                /etc/init.d/apache2 reload > /dev/null
+            fi
+        endscript
+    }
+
+    Aquí:
+        daily: rota los logs cada 24 horas.
+        rotate 7: mantiene los últimos 7 archivos de log (ajusta según tus necesidades).
+        compress: comprime los archivos de log antiguos.
+        delaycompress: evita que el archivo de log más reciente sea comprimido de inmediato.
+        postrotate ... endscript: recarga Apache para que inicie nuevos archivos de log.
+
+    Guarda y cierra el archivo (Ctrl + O y Ctrl + X en nano).
+
+Paso 2: Verificar logrotate
+
+Para asegurarte de que logrotate esté configurado correctamente, puedes ejecutarlo manualmente en modo de prueba con el siguiente comando:
+
+bash
+
+sudo logrotate -d /etc/logrotate.d/apache2
+
+Esto simulará la rotación de logs sin realizar ningún cambio real.
+Paso 3: Verificar la Rotación de LogsX
+
+Logrotate se ejecuta automáticamente todos los días como parte de las tareas cron del sistema, por lo que no necesitas realizar ninguna otra acción. Los archivos de log de Apache ahora se rotarán cada 24 horas.
