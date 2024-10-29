@@ -2,3 +2,63 @@
 Identificación log de acceso: empresa-tarea-daw02-access.log
 Identificación log de error: empresa-tarea-daw02-error.log
 Alias logformat: combined
+
+Paso 1: Configurar el archivo del Virtual Host
+
+    Abre el archivo de configuración para el virtual host empresa-tarea-daw02. Generalmente se encuentra en /etc/apache2/sites-available/empresa-tarea-daw02.conf. Si aún no existe, créalo o edítalo:
+
+    bash
+
+sudo nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
+
+Define las rutas para los archivos de registro y el formato. Añade o edita las siguientes líneas en el bloque <VirtualHost> para configurar los logs:
+
+apache
+
+    <VirtualHost *:80>
+        ServerName empresa-tarea-daw02
+        DocumentRoot /var/www/empresa-tarea-daw02
+
+        # Configuración de los archivos de log
+        ErrorLog ${APACHE_LOG_DIR}/empresa-tarea-daw02-error.log
+        CustomLog ${APACHE_LOG_DIR}/empresa-tarea-daw02-access.log combined
+
+        <Directory /var/www/empresa-tarea-daw02>
+            AllowOverride All
+            Require all granted
+        </Directory>
+    </VirtualHost>
+
+        ErrorLog: Especifica el archivo de registro de errores como empresa-tarea-daw02-error.log.
+        CustomLog: Define el archivo de registro de acceso como empresa-tarea-daw02-access.log y usa combined como formato, que es un alias predefinido en Apache para un formato detallado de log.
+
+    Guarda y cierra el archivo (Ctrl + O para guardar y Ctrl + X para salir en nano).
+
+Paso 2: Habilitar el Virtual Host y Reiniciar Apache
+
+    Habilita el archivo de configuración del Virtual Host (si aún no está habilitado):
+
+    bash
+
+sudo a2ensite empresa-tarea-daw02.conf
+
+Reinicia Apache para aplicar los cambios:
+
+bash
+
+    sudo systemctl restart apache2
+
+Paso 3: Verificar la Configuración
+
+Para confirmar que Apache está usando estos archivos de log:
+
+    Puedes revisar si los archivos de log se generan en el directorio /var/log/apache2/.
+
+    Para ver los logs en tiempo real, puedes ejecutar:
+
+    bash
+
+    tail -f /var/log/apache2/empresa-tarea-daw02-access.log
+    tail -f /var/log/apache2/empresa-tarea-daw02-error.log
+
+Esta configuración ahora crea los registros de acceso y error con el formato combined en los archivos especificados.
