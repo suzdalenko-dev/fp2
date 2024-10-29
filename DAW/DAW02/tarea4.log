@@ -96,3 +96,8 @@ sudo apt install chromium-browser
 
     Navega a http://todo-empresa-tarea-daw02 para ver el directorio principal sin restricciones.
     Dirígete a http://todo-empresa-tarea-daw02/delimitado, donde deberías ver un cuadro de autenticación pidiendo el usuario y la contraseña del usuario admin.
+
+
+Para la solución de la tarea simular la página web con dos archivos HTML:
+Uno de nombre index.html en la raiz del directorio todo-empresa-tarea-daw02 que contenga el texto 'ACCESO NO LIMITADO'.
+Uno de nombre index.html en la raiz del directorio todo-empresa-tarea-daw02/delimitado que contenga el texto 'ACCESO LIMITADO'.
