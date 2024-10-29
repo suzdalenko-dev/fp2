@@ -1,1 +1,50 @@
 5. Pemitir el protocolo HTTPS en el virtualhost empresa-tarea-daw02
+
+Para configurar HTTPS en el virtual host empresa-tarea-daw02, sigue estos pasos en tu servidor Ubuntu con Apache:
+
+    Instala el módulo SSL de Apache (si aún no está instalado):
+
+    bash
+
+sudo apt update
+sudo apt install apache2
+sudo a2enmod ssl
+
+Genera un certificado SSL autofirmado (o puedes usar Let’s Encrypt para un certificado gratuito y válido en producción):
+
+bash
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/empresa-tarea-daw02.key -out /etc/ssl/certs/empresa-tarea-daw02.crt
+
+Durante este proceso, se te pedirá información para el certificado. Puedes completarla o dejar algunos campos en blanco.
+
+Configura el Virtual Host para HTTPS: Crea o edita el archivo del virtual host en /etc/apache2/sites-available/empresa-tarea-daw02.conf:
+
+apache
+
+<VirtualHost *:443>
+    ServerName empresa-tarea-daw02
+    DocumentRoot /var/www/empresa-tarea-daw02
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/empresa-tarea-daw02.crt
+    SSLCertificateKeyFile /etc/ssl/private/empresa-tarea-daw02.key
+
+    <Directory /var/www/empresa-tarea-daw02>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+Asegúrate de reemplazar empresa-tarea-daw02 y /var/www/empresa-tarea-daw02 con el dominio y el directorio correctos.
+
+Habilita el nuevo Virtual Host y reinicia Apache:
+
+bash
+
+    sudo a2ensite empresa-tarea-daw02.conf
+    sudo systemctl restart apache2
+
+    Verifica la configuración: En el navegador, accede a https://empresa-tarea-daw02 para confirmar que HTTPS está habilitado.
+
+Esto configurará el virtual host empresa-tarea-daw02 con soporte para HTTPS usando un certificado SSL.
