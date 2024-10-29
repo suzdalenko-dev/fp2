@@ -1,0 +1,4 @@
+4. Crear el subdirectorio todo-empresa-tarea-daw02/delimitado teniendo en cuenta que:
+El directorio todo-empresa-tarea-daw02 permite el acceso a cualquier usuario.
+El subdirectorio todo-empresa-tarea-daw02/delimitado permite el acceso solamente al personal de la empresa que tenga
+ el rol: admin

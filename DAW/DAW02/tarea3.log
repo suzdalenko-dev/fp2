@@ -4,89 +4,19 @@
 Paso 1: Verificar la Configuración Actual
 Abre la terminal en tu Ubuntu y verifica la configuración actual de tipos MIME en Apache ejecutando:
 
-bash
-Copiar código
-cat /etc/apache2/apache2.conf | grep "AddType"
-Paso 2: Configurar el Tipo MIME para FLV
-Editar el archivo de configuración de Apache:
 
-Abre el archivo de configuración de Apache (apache2.conf o el archivo mime.types) usando un editor de texto, como nano:
-
-bash
-Copiar código
-sudo nano /etc/apache2/apache2.conf
-O, si prefieres, puedes editar el archivo mime.types:
-
-bash
-Copiar código
-sudo nano /etc/apache2/mime.types
-Agregar el tipo MIME para FLV:
-
-En el archivo de configuración que abriste, añade la siguiente línea para definir el tipo MIME para archivos FLV:
-
-apache
-Copiar código
-AddType video/x-flv .flv
-Si estás editando el archivo mime.types, asegúrate de que la siguiente línea esté presente:
-
-plaintext
-Copiar código
-video/x-flv  flv
-Paso 3: Comprobar la Existencia del Archivo
-Asegúrate de que el archivo de vídeo entrada.flv se encuentra en el directorio especificado. Puedes verificarlo con:
-
-bash
-Copiar código
-ls /ruta/a/videos/entrada.flv
-Paso 4: Reiniciar el Servidor Apache
-Después de realizar los cambios, es necesario reiniciar el servidor Apache para que la configuración surta efecto:
-
-bash
-Copiar código
-sudo systemctl restart apache2
-Paso 5: Verificar la Configuración
-Crear una Página de Prueba:
-
-Puedes crear una página HTML sencilla para probar si el vídeo se carga correctamente:
-
-bash
-Copiar código
-echo "<video controls>
-        <source src='/entrada.flv' type='video/x-flv'>
-        Tu navegador no soporta la etiqueta de vídeo.
-      </video>" | sudo tee /var/www/html/prueba_video.html
-Acceder a la Página de Prueba:
+sudo apt install apache2 -y
+systemctl start apache2
+systemctl start service
+systemctl status apache2
 
 
+archivos: HTML /var/www/html/index.html
+config  : /etc/apache2
+mis arch: /home/vboxuser/Download/
 
 
-
-COPIAR EL ARCHIVO
-sudo cp /home/vboxuser/downloads/entrada.mp4 /var/www/html/
-
-
-
-
-
-COMO CONFIGURAR TIPE MIME para .flv
-Abre el archivo de configuración de tipos MIME de Apache:
-
-bash
-Copiar código
-sudo nano /etc/apache2/conf-available/mime.conf
-Dentro del archivo, agrega esta línea al final para definir el tipo MIME para .flv:
-
-apache
-Copiar código
-AddType video/x-flv .flv
-Guarda y cierra el archivo (Ctrl + O para guardar y Ctrl + X para salir en Nano).
-
-Habilita la configuración de MIME si no está habilitada (en la mayoría de los casos debería estarlo):
-
-bash
-Copiar código
-sudo a2enconf mime
-Reinicia Apache para aplicar los cambios:
+nano /etc/apache2/mods-available/mime.conf > AddType video/x-flv .flv
 
 bash
 Copiar código
