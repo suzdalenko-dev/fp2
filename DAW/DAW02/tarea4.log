@@ -91,5 +91,8 @@ plaintext
 Guarda y cierra el archivo.
 Prueba del Acceso
 
+sudo apt update
+sudo apt install chromium-browser
+
     Navega a http://todo-empresa-tarea-daw02 para ver el directorio principal sin restricciones.
     Dirígete a http://todo-empresa-tarea-daw02/delimitado, donde deberías ver un cuadro de autenticación pidiendo el usuario y la contraseña del usuario admin.
