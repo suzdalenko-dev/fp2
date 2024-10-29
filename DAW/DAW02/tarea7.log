@@ -48,6 +48,6 @@ bash
 sudo logrotate -d /etc/logrotate.d/apache2
 
 Esto simulará la rotación de logs sin realizar ningún cambio real.
-Paso 3: Verificar la Rotación de Logs
+Paso 3: Verificar la Rotación de LogsX
 
 Logrotate se ejecuta automáticamente todos los días como parte de las tareas cron del sistema, por lo que no necesitas realizar ninguna otra acción. Los archivos de log de Apache ahora se rotarán cada 24 horas.
