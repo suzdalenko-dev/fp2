@@ -1,0 +1,4 @@
+6. Configurar los archivos de registro como sigue:
+Identificación log de acceso: empresa-tarea-daw02-access.log
+Identificación log de error: empresa-tarea-daw02-error.log
+Alias logformat: combined
