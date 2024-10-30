@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWEC03</title>
+</head>
+<body>
+    <h1>TAREA DWEC03</h1><hr />
+    <button id="openWindowId">Abrir nueva ventana</button><br><br>
+    <p id="apartado5"></p>
+    <p id="apartado6"></p>
+    <script>
+        class Task03 {
+            constructor() {
+                /* localizo el boton "Abrir nueva ventana" 
+                    y le asigno evento que ejecuta el metodo openWindow */ 
+                document.getElementById("openWindowId").addEventListener("click", () => this.openWindow());
+          
+            }
+            /* la función (método) que abre nueva ventana */
+            openWindow() {
+                let newWindowSuzdal = window.open("", "_blank");
+                newWindowSuzdal.document.body.style.backgroundColor = "#99dcff";
+                newWindowSuzdal.document.body.innerHTML  =  `
+                    <h3>Ejemplo de Ventana Nueva</h3>
+                    <p>URL Completa: ${location.href}</p>
+                    <p>Protocolo utilizado: ${location.protocol}</p>
+                    <p>Nombre en código del navegador: ${navigator.appCodeName}</p>
+                    
+                    <p>${navigator.javaEnabled() ? "Java SI disponible en esta ventana": 
+                        "Java NO disponible en esta ventana"}</p>
+                    
+                    <p>Resolución de Pantalla: ${screen.width} x ${screen.height}</p>
+                    <p>Número Aleatorio (1-100): ${Math.floor(Math.random() * 100) + 1}</p>
+                    `;
+            }
+            /* solicita datos al usuario */
+            requestDataFromUser(){
+                let nameComplete = prompt("Ingresa tu nombre completo:");
+                let dayBirth     = prompt("Ingresa el día de tu nacimiento (ejemplo: 12):");
+                let monthBirth   = prompt("Ingresa el mes de tu nacimiento (ejemplo: 05):");
+                let yearBirth    = prompt("Ingresa el año de tu nacimiento (ejemplo: 1990):")
+                this.dataProcessingAndVisualization(nameComplete, dayBirth, monthBirth, yearBirth)
+            }
+            /* provesamiento y visualizacion de datos */
+            dataProcessingAndVisualization(nameComplete, dayBirth, monthBirth, yearBirth){
+                let namesMonths = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+                let monthName = namesMonths[monthBirth - 1];
+
+                // calcular la edad del usuario
+                let dateCurrent = new Date();
+                let yearCurrent = dateCurrent.getFullYear();
+                let age = yearCurrent - yearBirth;
+
+                let firstA = nameComplete.toLowerCase().indexOf("a");
+                let lastA  = nameComplete.toLowerCase().lastIndexOf("a");
+                let nameNoFirstThree = nameComplete.substring(3)
+                let information = `Buenos días ${nameComplete} <br>
+                                Tu nombre tiene ${nameComplete.length} caracteres, incluidos espacios <br>
+                                La primera letra "A" de tu nombre está en la posición: ${firstA >= 0 ? firstA + 1 : "no se encontró"} <br>
+                                La última letra "A" de tu nombre está en la posición: ${lastA >= 0 ? lastA + 1 : "no se encontró"} <br>
+                                Tu nombre menos las 3 primeras letras es: ${nameNoFirstThree} <br>
+                                Tu nombre todo en mayúsculas es: ${nameComplete.toUpperCase()}.<br>
+                                Tu edad es: ${age} años <br>
+                                Naciste un feliz ${dayBirth} de ${monthName} del año ${yearBirth}
+                                `;
+
+                document.getElementById('apartado5').innerHTML = information;
+            }
+            /* calculos adicionales */
+            additionalCalculations(){
+                // Calcular el coseno de 180 grados (en radianes)
+                let coseno180 = Math.cos(180 * Math.PI / 180); // Convertimos 180 grados a radianes
+                // Encontrar el número mayor de la lista
+                let greaterNumber = Math.max(34, 67, 23, 75, 35, 19);
+                // Generar un número aleatorio entre 1 y 100
+                let randomNumber = Math.floor(Math.random() * 100) + 1;
+                let messageCalculations = `El coseno de 180 grados es: ${coseno180} <br>
+                                        El número mayor de la lista (34, 67, 23, 75, 35, 19) es: ${greaterNumber} <br>
+                                        Un número aleatorio entre 1 y 100 es: ${randomNumber}`;
+                document.getElementById('apartado6').innerHTML = messageCalculations;
+            }
+        }
+
+        let task03 = new Task03();
+        task03.requestDataFromUser();
+        task03.additionalCalculations();
+    </script>
+</body>
+</html>
