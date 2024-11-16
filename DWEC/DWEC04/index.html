@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWEC04</title>
+    <meta name="author" content="Alexey Suzdalenko" />
+</head>
+<body>
+    <script>
+        class Vehiculo {
+            constructor(marca, modelo, anio, plazas){
+                this.marca        = marca;
+                this.modelo       = modelo;
+                this.anio         = anio;
+                this.plazas       = plazas;
+                this.propietarios = [];
+                this.historialViajes = [];
+                console.log(
+                    `Vehículo ${this.marca} ${this.modelo} del año ${this.anio} creado con ${this.plazas} plazas.`);
+            }
+            agregarPropietario(nombre, asiento){
+                let asientoLibre = 'si';
+                this.propietarios.forEach(propietario => {
+                    if(propietario.asiento ==  asiento){
+                        asientoLibre = 'no';
+                    }
+                });
+                if(asientoLibre == 'si'){
+                    this.propietarios.push({nombre, asiento});
+                    console.log(`${nombre} es ahora la propietaria del asiento ${asiento}.`);
+                }
+            }
+            eliminarPropietario(asiento){
+                for (let i = 0; i < this.propietarios.length; i++) {
+                    if(this.propietarios[i].asiento ==  asiento){
+                        this.propietarios.splice(i, 1);
+                        console.log(`Se ha eliminado al propietario del asiento ${asiento}.`);
+                    }
+                };
+            }
+            registrarViaje(destino, duracion, fecha){
+                this.historialViajes.push({destino, duracion, fecha});
+                console.log(`"Viaje registrado al destino ${destino} de duración ${duracion} el ${fecha}."`);
+            }
+            modificarAnio(anio){
+                this.anio = anio;
+                console.log(`Actualizado el año de fabricación a ${this.anio}`);
+            }
+            imprimeMarcaModelo(){
+                console.log(`Marca ${this.marca} y modelo ${this.modelo}.`);
+            }
+            imprimeAnio(){
+                console.log(`Año de fabricación ${this.anio}.`);
+            }
+            imprimePropietarios(){
+                for(let i = 0; i < this.plazas; i++){
+                    if (this.propietarios[i]) {
+                        let person = this.propietarios[i];
+                        console.log(`Nombre de la persona ${person.nombre} su asiento ${person.asiento}`);
+                    } else {
+                        console.log(`Asiento ${i} está libre`);
+                    }
+                }
+            }
+            imprimeHistorialViajes(){
+                console.log(`El historial de viajes:`);
+                this.historialViajes.forEach(viaje => {
+                    console.log(`Viaje destino ${viaje.destino} duración ${viaje.duracion} fecha ${viaje.fecha}.`);
+                });
+            }
+        }
+
+        /* creo una instancia del objeto Vehiculo y 
+            le añado 3 propietarios con sus asientos
+        */
+        let v = new Vehiculo("Toyota", "Corolla", 2020, 5);
+            v.agregarPropietario("Ana Perez", 1);
+            v.agregarPropietario("Peter", 2);
+            v.agregarPropietario("Lucia", 3);
+
+            /* elimino el propietario del asiento numero 2 */
+            v.eliminarPropietario(2);
+
+            /* registro un viaje */
+            v.registrarViaje("Madrid", "5 horas", "10/11/2024");
+
+            /* modifico el año de fabricación del vehiculo */
+            v.modificarAnio(1991);
+
+            /* imprimo datos vehiculo */
+            v.imprimeMarcaModelo();
+
+            /* imprimo el año */
+            v.imprimeAnio();
+
+            /* imprimo los propietarios */
+            v.imprimePropietarios();
+
+            /* imprimir viajes */
+            v.imprimeHistorialViajes();
+    </script>
+</body>
+</html>
