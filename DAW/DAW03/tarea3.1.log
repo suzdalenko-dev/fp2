@@ -1,0 +1,34 @@
+Dispones de una máquina que cuenta con el sistema operativo Ubuntu 18.04 LTS o posterior,
+ recientemente actualizado, en la que está el entorno de red configurado y, además, dispones de conexión a Internet
+y estás trabajando con la cuenta del usuario root . 
+Indica cada uno de los pasos, y comandos implicados en ellos, para conseguir hacer lo siguiente:
+    
+    -- Instalar el JDK 8
+    apt update && apt upgrade -y    # Actualizar la lista de paquetes
+    java -version                   # Verificar si hay versiones de Java instaladas
+    apt remove --purge openjdk* -y  # Si aparece una versión de Java y deseas reemplazarla, será necesario desinstalarla antes de continuar
+
+    apt install openjdk-8-jdk -y    #  Instalar el paquete de JDK 8
+    java -version
+
+
+    # Si tienes varias versiones de Java instaladas en el sistema y deseas establecer JDK 8 como predeterminado:
+    update-alternatives --config java
+    Aparecerá un listado de las versiones de Java instaladas. Selecciona el número correspondiente a JDK 8.
+
+    # Configurar la variable de entorno JAVA_HOME
+    # Es importante configurar la variable JAVA_HOME para que otras herramientas puedan encontrar la instalación de Java.
+
+    # Edita el archivo de configuración del sistema:
+    nano /etc/environment
+
+    # Agrega la siguiente línea al final del archivo:
+    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+
+    source /etc/environment
+    # Verifica que la variable esté configurada correctamente:
+
+    echo $JAVA_HOME
+
+    # Probar el compilador
+    javac -version

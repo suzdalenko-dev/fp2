@@ -1,0 +1,112 @@
+Pasos para descargar e instalar WildFly 19.0.0 Final en Ubuntu 18.04 o posterior
+Paso 1: Preparar el entorno
+Asegúrate de que el sistema esté actualizado:
+
+
+apt update && apt upgrade -y
+Verifica que tienes instalado wget para descargar archivos desde Internet. Si no está instalado, puedes hacerlo con:
+
+
+apt install wget -y
+Instala herramientas necesarias como unzip, si aún no están presentes:
+
+
+apt install unzip -y
+Paso 2: Descargar WildFly 19.0.0 Final
+Ve al directorio /opt donde instalaremos WildFly:
+
+
+cd /opt
+Descarga el archivo comprimido de WildFly 19.0.0 Final desde el sitio oficial utilizando wget:
+
+
+wget https://github.com/wildfly/wildfly/releases/download/19.0.0.Final/wildfly-19.0.0.Final.zip
+Paso 3: Extraer el archivo descargado
+Descomprime el archivo descargado:
+
+
+unzip wildfly-19.0.0.Final.zip
+Renombra el directorio extraído para facilitar el manejo:
+
+
+mv wildfly-19.0.0.Final wildfly
+Elimina el archivo comprimido para ahorrar espacio:
+
+
+rm wildfly-19.0.0.Final.zip
+Paso 4: Asignar permisos y propietario
+Cambia el propietario del directorio de WildFly al usuario creado anteriormente (wildfly):
+
+
+chown -R wildfly:wildfly /opt/wildfly
+Asegúrate de que solo el usuario wildfly tenga los permisos necesarios para ejecutar el servidor:
+
+
+chmod -R 750 /opt/wildfly
+Paso 5: Configurar WildFly para ejecutarse como un servicio
+Crea un archivo de configuración para WildFly en /etc/wildfly:
+
+
+mkdir /etc/wildfly
+Copia el archivo de configuración predeterminado:
+
+
+cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf /etc/wildfly/
+Copia el archivo del servicio wildfly.service a systemd:
+
+
+cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
+Edita el archivo wildfly.conf para ajustar las configuraciones, como la ubicación de WildFly:
+
+
+nano /etc/wildfly/wildfly.conf
+Asegúrate de que el archivo apunte al directorio /opt/wildfly.
+
+Recarga el daemon de systemd para aplicar los cambios:
+
+
+systemctl daemon-reload
+Habilita el servicio para que WildFly se inicie automáticamente con el sistema:
+
+
+systemctl enable wildfly
+Inicia el servicio de WildFly:
+
+
+systemctl start wildfly
+Verifica que WildFly esté funcionando correctamente:
+
+
+systemctl status wildfly
+Paso 6: Configuración de la interfaz de administración
+Por defecto, la consola de administración de WildFly estará disponible en el puerto 9990. Para acceder:
+
+Abre un navegador y ve a:
+arduino
+http://<IP_DEL_SERVIDOR>:9990
+
+Resumen de comandos
+# Actualizar el sistema
+apt update && apt upgrade -y
+
+# Descargar WildFly 19.0.0 Final
+cd /opt
+wget https://github.com/wildfly/wildfly/releases/download/19.0.0.Final/wildfly-19.0.0.Final.zip
+
+# Extraer y configurar permisos
+unzip wildfly-19.0.0.Final.zip
+mv wildfly-19.0.0.Final wildfly
+rm wildfly-19.0.0.Final.zip
+chown -R wildfly:wildfly /opt/wildfly
+chmod -R 750 /opt/wildfly
+
+# Configurar como servicio
+mkdir /etc/wildfly
+cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf /etc/wildfly/
+cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
+nano /etc/wildfly/wildfly.conf
+systemctl daemon-reload
+systemctl enable wildfly
+systemctl start wildfly
+systemctl status wildfly
+Con estos pasos, WildFly 19.0.0 Final estará instalado y configurado en tu sistema.

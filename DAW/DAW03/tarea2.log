@@ -1,0 +1,108 @@
+Pregunta:
+Another Neat Tool se basa en ficheros XML, normalmente configuramos el trabajo a hacer con nuestra aplicación en un fichero
+ llamado build.xml. Indica algunas de las etiquetas con las que podemos formar el contenido de este archivo.
+
+Respuesta:
+El archivo build.xml en Apache Ant es el fichero principal que define las tareas (tasks) que se realizarán durante la 
+ construcción y despliegue de una aplicación. Se utiliza un formato XML estructurado para configurar estas tareas.
+
+Principales etiquetas utilizadas en build.xml
+
+<project>:
+    Es la etiqueta raíz del archivo.
+    Define el proyecto y sus propiedades generales.
+    Atributos comunes:
+        name: Nombre del proyecto.
+        default: Tarea que se ejecutará por defecto.
+        basedir: Directorio base del proyecto.
+Ejemplo:
+<project name="MiProyecto" default="compilar" basedir=".">
+</project>
+
+
+<property>:
+    Define propiedades (variables) que pueden ser utilizadas a lo largo del archivo.
+    Atributos comunes:
+        name: Nombre de la propiedad.
+        value: Valor de la propiedad.
+Ejemplo:
+<property name="src" value="src"/>
+<property name="build" value="build"/>
+
+
+<target>:
+    Define una tarea o conjunto de tareas.
+    Atributos comunes:
+        name: Nombre del objetivo (target).
+    depends: Especifica dependencias (otros targets que deben ejecutarse antes).
+Ejemplo:
+<target name="limpiar">
+    <delete dir="${build}"/>
+</target>
+
+
+<mkdir>:
+    Crea un directorio.
+        Atributos comunes:
+            dir: Ruta del directorio a crear.
+Ejemplo:
+<delete dir="${build}"/>
+
+
+<copy>:
+    Copia archivos o directorios.
+    Atributos comunes:
+        file: Archivo fuente a copiar.
+        tofile: Archivo destino.
+        todir: Directorio destino.
+Ejemplo:
+    <copy file="README.md" todir="${build}"/>
+
+
+<javac>:
+    Compila código fuente Java.
+    Atributos comunes:
+        srcdir: Directorio fuente.  
+        destdir: Directorio destino de los archivos compilados.
+Ejemplo:
+<javac srcdir="${src}" destdir="${build}"/>
+
+
+<jar>:
+    Genera un archivo JAR.
+        Atributos comunes:
+        destfile: Ruta y nombre del archivo JAR generado.
+Ejemplo:
+<jar destfile="MiAplicacion.jar" basedir="${build}"/>
+
+
+Ejemplo completo de archivo build.xml:
+<project name="MiProyecto" default="compilar" basedir=".">
+    <!-- Definición de propiedades -->
+    <property name="src" value="src"/>
+    <property name="build" value="build"/>
+    <property name="jar" value="dist/MiAplicacion.jar"/>
+
+    <!-- Tarea para limpiar -->
+    <target name="limpiar">
+        <delete dir="${build}"/>
+    </target>
+
+    <!-- Tarea para compilar -->
+    <target name="compilar" depends="limpiar">
+        <mkdir dir="${build}"/>
+        <javac srcdir="${src}" destdir="${build}"/>
+    </target>
+
+    <!-- Tarea para empaquetar en un JAR -->
+    <target name="empaquetar" depends="compilar">
+        <mkdir dir="dist"/>
+        <jar destfile="${jar}" basedir="${build}"/>
+    </target>
+</project>
+
+Notas:
+La estructura modular de Ant permite definir tareas independientes y conectarlas mediante dependencias usando el 
+    atributo depends.
+Ant es muy flexible, por lo que se pueden agregar muchas otras etiquetas para personalizar el flujo de trabajo,
+ como <echo> para mensajes en la consola, o <zip> para crear archivos comprimidos.

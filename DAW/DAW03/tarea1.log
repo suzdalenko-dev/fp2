@@ -1,0 +1,68 @@
+1. Una aplicación web puede ser desplegada en diferentes servidores web manteniendo su funcionalidad y sin ningún 
+tipo de modificación en su código debido a la especificación servlet 2.2 , 
+¿cúal es la estructura de directorios que debe tener?
+
+Respuesta:
+La especificación Servlet 2.2 establece una estructura estándar para las aplicaciones web, conocida como estructura
+ WAR (Web Application Archive). Esta estructura garantiza que las aplicaciones sean portables entre diferentes 
+ servidores compatibles con Java EE.
+
+ /<nombre-aplicación>/
+  ├── /WEB-INF/
+  │    ├── web.xml
+  │    ├── /classes/
+  │    └── /lib/
+  ├── Archivos públicos (HTML, CSS, JS, imágenes, etc.)
+
+Detalles de cada elemento:
+Directorio raíz (/<nombre-aplicación>/):
+Es el contenedor principal de la aplicación web. Contiene todos los archivos y directorios de la aplicación. Este directorio es empaquetado como un archivo .war al desplegarse en el servidor de aplicaciones.
+
+Directorio WEB-INF/:
+Es un directorio reservado y no accesible directamente desde el cliente. Contiene la configuración y los recursos internos de la aplicación. Incluye:
+
+web.xml:
+Es el descriptor de despliegue de la aplicación. Contiene la configuración necesaria para el servidor web, como mapeos de servlets, filtros, parámetros de inicialización, etc.
+/classes/:
+Contiene los archivos .class que representan las clases Java compiladas de la aplicación. Estas clases incluyen servlets, controladores, y cualquier lógica de negocio.
+/lib/:
+Este directorio contiene archivos .jar con bibliotecas adicionales que la aplicación necesita para su funcionamiento.
+Archivos y directorios públicos:
+Estos archivos se colocan directamente en el directorio raíz y son accesibles desde el cliente a través de solicitudes HTTP. Por ejemplo:
+
+Archivos HTML: Páginas estáticas o plantillas base de la aplicación.
+CSS y JavaScript: Archivos para el diseño y la funcionalidad del frontend.
+Imágenes y recursos multimedia: Archivos como .png, .jpg, .gif, etc.
+
+
+Ejemplo práctico de estructura
+Supongamos una aplicación llamada MiAplicación con las siguientes características:
+
+Contiene una página principal (index.html).
+Utiliza un servlet (MiServlet.class).
+Requiere una biblioteca (miBiblioteca.jar).
+La estructura de directorios sería:
+
+/MiAplicación/
+  ├── index.html
+  ├── styles.css
+  ├── script.js
+  ├── /images/
+  │    ├── logo.png
+  │    └── fondo.jpg
+  ├── /WEB-INF/
+  │    ├── web.xml
+  │    ├── /classes/
+  │    │    └── MiServlet.class
+  │    └── /lib/
+  │         └── miBiblioteca.jar
+
+Por qué es importante esta estructura
+Portabilidad:
+Al seguir la especificación, la aplicación puede desplegarse en cualquier servidor web compatible con Java EE sin cambios en el código.
+
+Seguridad:
+Los recursos críticos de la aplicación (como las clases y bibliotecas) están protegidos dentro del directorio WEB-INF, inaccesible para los usuarios.
+
+Mantenibilidad:
+Una organización clara de los recursos facilita el desarrollo, mantenimiento y escalabilidad de la aplicación.
