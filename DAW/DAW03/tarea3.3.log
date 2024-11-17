@@ -6,7 +6,7 @@ cd /opt
 
 Descargar WildFly 19.0.0 Final:
 
-sudo wget https://github.com/wildfly/wildfly/releases/download/19.0.0.Final/wildfly-19.0.0.Final.tar.gz
+sudo wget wget https://github.com/wildfly/wildfly/releases/download/28.0.1.Final/wildfly-28.0.1.Final.tar.gz
 Extraer el archivo descargado:
 
 
@@ -40,7 +40,7 @@ Descargar WildFly 19.0.0 Final desde su repositorio oficial:
 
 bash
 Copiar código
-sudo wget https://github.com/wildfly/wildfly/releases/download/19.0.0.Final/wildfly-19.0.0.Final.tar.gz
+sudo wget wget https://github.com/wildfly/wildfly/releases/download/28.0.1.Final/wildfly-28.0.1.Final.tar.gz
 Este comando descarga el archivo comprimido de WildFly directamente desde el repositorio oficial de GitHub.
 
 Verificar que el archivo se haya descargado correctamente:
