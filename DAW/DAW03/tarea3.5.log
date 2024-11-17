@@ -1,0 +1,25 @@
+Paso 5: Configurar la autenticación de WildFly
+Ejecutar la herramienta de gestión de usuarios de WildFly:
+
+bash
+Copiar código
+sudo /opt/wildfly/bin/add-user.sh
+Seguir las instrucciones en pantalla:
+
+Selecciona Management User.
+Introduce un nombre de usuario (por ejemplo: admin).
+Establece una contraseña segura.
+Responde yes para agregar al archivo de usuarios de administración.
+Reiniciar el servicio WildFly:
+
+bash
+Copiar código
+sudo systemctl restart wildfly
+Acceder a la consola de administración:
+
+Abre un navegador web.
+Ve a la URL:
+arduino
+Copiar código
+http://<tu_IP>:9990
+Ingresa las credenciales configuradas en el paso anterior.

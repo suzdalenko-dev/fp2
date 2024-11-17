@@ -1,0 +1,62 @@
+Paso 4: Configurar systemd y el archivo wildfly.conf
+Crear un archivo de configuración de WildFly:
+
+bash
+Copiar código
+sudo nano /etc/default/wildfly.conf
+Añadir el siguiente contenido:
+
+bash
+Copiar código
+# Directorio de instalación de WildFly
+WILDFLY_HOME="/opt/wildfly"
+
+# Dirección de red para enlazar (ajustar si es necesario)
+WILDFLY_BIND="0.0.0.0"
+
+# Usuario que ejecutará WildFly
+WILDFLY_USER="wildfly"
+Crear un archivo de servicio para systemd:
+
+bash
+Copiar código
+sudo nano /etc/systemd/system/wildfly.service
+Contenido del archivo:
+
+bash
+Copiar código
+[Unit]
+Description=WildFly Application Server
+After=network.target
+
+[Service]
+User=wildfly
+Group=wildfly
+ExecStart=/opt/wildfly/bin/standalone.sh -b=${WILDFLY_BIND}
+ExecStop=/opt/wildfly/bin/jboss-cli.sh --connect command=:shutdown
+EnvironmentFile=/etc/default/wildfly.conf
+Restart=always
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+Recargar los servicios de systemd:
+
+bash
+Copiar código
+sudo systemctl daemon-reload
+Iniciar el servicio WildFly:
+
+bash
+Copiar código
+sudo systemctl start wildfly
+Habilitar el servicio para que inicie automáticamente:
+
+bash
+Copiar código
+sudo systemctl enable wildfly
+Verificar el estado del servicio:
+
+bash
+Copiar código
+sudo systemctl status wildfly

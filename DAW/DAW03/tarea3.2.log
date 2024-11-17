@@ -1,75 +1,13 @@
-Paso 1: Crear un usuario del sistema para WildFly
-Ejecuta el siguiente comando para crear un nuevo usuario llamado wildfly. Este usuario no tendrá acceso a iniciar sesión directamente y será usado exclusivamente para ejecutar el servicio WildFly:
+Paso 2: Crear usuario para WildFly
 
+Crear un usuario sin acceso a inicio de sesión:
 
-adduser --system --no-create-home --shell /bin/false wildfly
-Explicación de las opciones del comando:
+sudo useradd -r -s /sbin/nologin wildfly
 
---system: Crea un usuario del sistema.
---no-create-home: No se creará un directorio personal para el usuario.
---shell /bin/false: Se deshabilita el acceso al shell para mayor seguridad.
-Verifica que el usuario wildfly se haya creado:
+Crear un directorio para WildFly (opcional):
+Esto asegura que el usuario wildfly (creado específicamente para ejecutar el servidor WildFly) 
+ tenga los permisos necesarios para leer,
+ escribir y ejecutar archivos en el directorio /opt/wildfly
 
-
-id wildfly
-Paso 2: Crear el grupo del sistema para WildFly
-Si necesitas asociar al usuario wildfly con un grupo específico, crea un grupo llamado wildfly:
-
-
-addgroup --system wildfly
-Agrega el usuario wildfly al grupo correspondiente:
-
-
-usermod -aG wildfly wildfly
-Paso 3: Asignar permisos al usuario WildFly
-Identifica el directorio donde se instalará WildFly, por ejemplo, /opt/wildfly. Si este directorio aún no existe, créalo:
-
-
-mkdir -p /opt/wildfly
-Cambia el propietario y el grupo del directorio de instalación para que pertenezcan al usuario wildfly:
-
-
-chown -R wildfly:wildfly /opt/wildfly
-Asegúrate de que el usuario tenga los permisos necesarios en el directorio:
-
-
-chmod -R 750 /opt/wildfly
-Paso 4: Configuración del usuario administrador para la consola de WildFly
-Ve al directorio bin de WildFly. Si WildFly ya está instalado, el comando sería algo como:
-
-
-cd /opt/wildfly/bin
-Ejecuta el script para agregar un usuario administrador:
-
-
-./add-user.sh
-Responde a las preguntas del script:
-
-Tipo de usuario: Selecciona Management User (usuario para administrar el servidor).
-Nombre de usuario: Introduce el nombre deseado, por ejemplo, admin.
-Contraseña: Introduce una contraseña segura.
-Pertenece a grupos: Deja en blanco si no necesitas asignarlo a un grupo específico.
-Verifica que el usuario haya sido creado con éxito. El script mostrará un mensaje indicando que el usuario se agregó 
-correctamente.
-
-Resumen de comandos
-
-# Crear usuario del sistema WildFly
-adduser --system --no-create-home --shell /bin/false wildfly
-
-# Crear grupo (opcional) y asociar usuario
-addgroup --system wildfly
-usermod -aG wildfly wildfly
-
-# Crear y asignar permisos al directorio de instalación de WildFly
-mkdir -p /opt/wildfly
-chown -R wildfly:wildfly /opt/wildfly
-chmod -R 750 /opt/wildfly
-
-# Configurar usuario administrador en WildFly
-cd /opt/wildfly/bin
-./add-user.sh
-Notas adicionales:
-Asegúrate de que WildFly esté configurado para ejecutarse como el usuario wildfly en el archivo de configuración 
-de su servicio (por ejemplo, wildfly.service).
-Por motivos de seguridad, utiliza contraseñas fuertes para los usuarios administrativos.
+sudo mkdir /opt/wildfly
+sudo chown wildfly:wildfly /opt/wildfly
