@@ -7,11 +7,10 @@ cd /opt
 Descargar WildFly 19.0.0 Final:
 
 sudo wget wget https://github.com/wildfly/wildfly/releases/download/28.0.1.Final/wildfly-28.0.1.Final.tar.gz
+
 Extraer el archivo descargado:
-
-
-sudo tar -xvzf wildfly-19.0.0.Final.tar.gz
-sudo mv wildfly-19.0.0.Final wildfly
+sudo tar -xvzf wildfly-28.0.1.Final.tar.gz
+sudo mv wildfly-28.0.1.Final wildfly
 
 Eliminar el archivo comprimido:
 
