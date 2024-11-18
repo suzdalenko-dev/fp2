@@ -1,30 +1,10 @@
-Paso 4: Configurar systemd y el archivo wildfly.conf
-Crear un archivo de configuración de WildFly:
+4. Configurar systemd y el archivo wildfly.conf
+Crear un archivo de configuración para systemd:
 
-bash
-Copiar código
-sudo nano /etc/default/wildfly.conf
+sudo nano /etc/systemd/system/wildfly.service
 Añadir el siguiente contenido:
 
-bash
-Copiar código
-# Directorio de instalación de WildFly
-WILDFLY_HOME="/opt/wildfly"
 
-# Dirección de red para enlazar (ajustar si es necesario)
-WILDFLY_BIND="0.0.0.0"
-
-# Usuario que ejecutará WildFly
-WILDFLY_USER="wildfly"
-Crear un archivo de servicio para systemd:
-
-bash
-Copiar código
-sudo nano /etc/systemd/system/wildfly.service
-Contenido del archivo:
-
-bash
-Copiar código
 [Unit]
 Description=WildFly Application Server
 After=network.target
@@ -32,31 +12,46 @@ After=network.target
 [Service]
 User=wildfly
 Group=wildfly
-ExecStart=/opt/wildfly/bin/standalone.sh -b=${WILDFLY_BIND}
-ExecStop=/opt/wildfly/bin/jboss-cli.sh --connect command=:shutdown
-EnvironmentFile=/etc/default/wildfly.conf
+ExecStart=/opt/wildfly/bin/standalone.sh -b 0.0.0.0
 Restart=always
-SuccessExitStatus=143
+Environment=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 [Install]
 WantedBy=multi-user.target
+
+
+Guardar el archivo y cerrar el editor.
+
 Recargar los servicios de systemd:
 
-bash
-Copiar código
 sudo systemctl daemon-reload
-Iniciar el servicio WildFly:
+Iniciar WildFly y habilitarlo para que inicie automáticamente:
 
-bash
-Copiar código
+
 sudo systemctl start wildfly
-Habilitar el servicio para que inicie automáticamente:
-
-bash
-Copiar código
 sudo systemctl enable wildfly
 Verificar el estado del servicio:
 
-bash
-Copiar código
+
 sudo systemctl status wildfly
+5. Configurar la autenticación de WildFly
+Ejecutar el script de administración de usuarios:
+
+
+/opt/wildfly/bin/add-user.sh
+Sigue las instrucciones:
+
+Usuario: Ingresa un nombre de usuario administrativo (por ejemplo, admin).
+Contraseña: Introduce una contraseña segura.
+Rol: Deja el rol predeterminado como ManagementRealm.
+Reinicia WildFly para aplicar los cambios:
+
+
+sudo systemctl restart wildfly
+Prueba de la instalación
+Abre un navegador y accede a la consola de administración de WildFly:
+arduino
+Copiar código
+http://<IP_DE_TU_SERVIDOR>:9990
+Sustituye <IP_DE_TU_SERVIDOR> por la dirección IP de tu máquina.
+Usa las credenciales configuradas para autenticarte.
