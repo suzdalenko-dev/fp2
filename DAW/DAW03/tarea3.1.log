@@ -8,8 +8,16 @@ Indica cada uno de los pasos, y comandos implicados en ellos, para conseguir hac
     java -version                   # Verificar si hay versiones de Java instaladas
     apt remove --purge openjdk* -y  # Si aparece una versión de Java y deseas reemplazarla, será necesario desinstalarla antes de continuar
 
-    apt install openjdk-8-jdk -y    #  Instalar el paquete de JDK 8
+
+
+
+    SOLO USARE ESTO:
+    apt install openjdk-8-jre-headless -y  
     java -version
+
+
+
+
 
 
     # Si tienes varias versiones de Java instaladas en el sistema y deseas establecer JDK 8 como predeterminado:
