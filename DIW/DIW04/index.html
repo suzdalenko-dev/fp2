@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educantabria</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header" style="background-color: azure;">
+            <h1>EDUCANTABRIA</h1>
+            <p>www.educantabria.es</p>
+        </header>
+        <nav class="menu">
+            <ul>
+                <li><a href="#">Información</a></li>
+                <li class="active"><a href="#">Centros</a></li>
+                <li><a href="#">Alumnado</a></li>
+                <li><a href="#">Profesorado</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <aside class="left-column">
+                <section>
+                    <h3>ACCESOS DIRECTOS</h3>
+                    <ul>
+                        <li><a href="#">Buscador de centros</a></li>
+                        <li><a href="#">Contratos Educativos</a></li>
+                        <li><a href="#">Empleo</a></li>
+                        <li><a href="#">Datos Abiertos</a></li>
+                        <li><a href="#">FEDER</a></li>
+                        <li><a href="#">Escolarización</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>CENTROS</h3>
+                    <ul>
+                        <li><a href="#">IES Augusto González de L.</a></li>
+                        <li><a href="#">IES Peñacastillo</a></li>
+                        <li><a href="#">Integrado N1</a></li>
+                    </ul>
+                </section>
+            </aside>
+            <section class="main-column">
+                <div class="news">
+                    <h2>ACTUALIDAD</h2>
+                    <p class="date">Feb. 06, 2023</p>
+                    <p><strong>Curso Competencia Digital Docente</strong></p>
+                    <p>
+                        La actividad está financiada por el Programa para la mejora de la competencia digital docente...
+                    </p>
+                </div>
+                <div class="details">
+                    <h2>DETALLE DEL CURSO</h2>
+                    <blockquote>
+                        “Profesorado de todas las etapas educativas...”
+                    </blockquote>
+                    <h3>Objetivos</h3>
+                    <ul>
+                        <li>Conocer el marco de referencia de la competencia digital docente.</li>
+                        <li>Reflexionar sobre la integración de las tecnologías digitales.</li>
+                        <li>Comprender la aplicación de las tecnologías digitales.</li>
+                        <li>Conocer y trabajar indicadores del MRCD.</li>
+                        <li>Desarrollar la competencia digital del profesorado.</li>
+                    </ul>
+                </div>
+            </section>
+            <aside class="right-column">
+                <h3>ÁREA DE USUARIOS</h3>
+                <form>
+                    <label for="user-id">ID de usuario:</label>
+                    <input type="text" id="user-id">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password">
+                    <button type="submit">Acceder</button>
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </form>
+            </aside>
+        </main>
+        <footer class="footer">
+            <p>Copyright © 2024 Tiw@FP. Todos los derechos reservados. Diseñado por <a href="#">www.educantabria.es</a>.</p>
+        </footer>
+    </div>
+</body>
+</html>
+<style>
+   body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #d6eaf8;
+    color: #003366;
+}
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+    border: 1px solid #71c7ec;
+    background-color: #ffffff;
+}
+
+.header {
+    background-color: #71c7ec;
+    text-align: center;
+    padding: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.menu {
+    background-color: #c4e3f3;
+    border-bottom: 1px solid #71c7ec;
+}
+
+.menu ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    justify-content: center;
+}
+
+.menu ul li {
+    margin: 0 10px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    color: #003366;
+    font-weight: bold;
+}
+
+.menu ul li a:hover,
+.menu ul li.active a {
+    background-color: #003366;
+    color: white;
+}
+
+.content {
+    display: flex;
+    padding: 20px;
+}
+
+.left-column {
+    width: 220px;
+    padding-right: 20px;
+    border-right: 1px solid #c4e3f3;
+}
+
+.left-column h3 {
+    border-bottom: 2px solid #71c7ec;
+    margin-bottom: 10px;
+}
+
+.left-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.left-column ul li a {
+    text-decoration: none;
+    color: #003366;
+}
+
+.main-column {
+    width: 480px;
+    padding: 0 20px;
+}
+
+.right-column {
+    width: 180px;
+    padding-left: 20px;
+}
+
+.footer {
+    background-color: #71c7ec;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    border-top: 1px solid #003366;
+}
+
+</style>
