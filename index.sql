@@ -1,182 +1,42 @@
-Proyección € MES = 
-    -- Variables para convertir las fechas seleccionadas (formato texto) a fechas
-    VAR FechaInicioTexto = MIN(dFechas[EjercicioMesDia]) -- Texto seleccionado más bajo
-    VAR FechaFinTexto = MAX(dFechas[EjercicioMesDia])   -- Texto seleccionado más alto
+Presupuesto € Mes BOTTOM = 
+-- Obtener la fecha seleccionada (puede ser cualquier fecha del mes seleccionado) }vP5Jfe]%p_mRws
+VAR FechaSeleccionadaTexto = MAX(dFechas[EjercicioMesDia]) -- Fecha seleccionada como texto
+VAR FechaSeleccionada = DATEVALUE(FechaSeleccionadaTexto) -- Convertir a tipo fecha
 
-    -- Convertir texto a tipo fecha
-    VAR FechaInicio = DATEVALUE(FechaInicioTexto)
-    VAR FechaFin = DATEVALUE(FechaFinTexto)
-
-    -- Calcular el número total de días en el mes correspondiente a la fecha más alta seleccionada
-    VAR DiasDelMes = DAY(EOMONTH(FechaFin, 0))
-
-    -- Calcular el número de días seleccionados en el rango
-    VAR DiasSeleccionados = DATEDIFF(FechaInicio, FechaFin, DAY) + 1
-
-    VAR ProyeccionEur = [Venta € Abel] / DiasSeleccionados * DiasDelMes
-
-    RETURN
-        ProyeccionEur
-
-
-Proyección kg MES = 
-    -- Variables para convertir las fechas seleccionadas (formato texto) a fechas
-    VAR FechaInicioTexto = MIN(dFechas[EjercicioMesDia]) -- Texto seleccionado más bajo
-    VAR FechaFinTexto = MAX(dFechas[EjercicioMesDia])   -- Texto seleccionado más alto
-
-    -- Convertir texto a tipo fecha
-    VAR FechaInicio = DATEVALUE(FechaInicioTexto)
-    VAR FechaFin = DATEVALUE(FechaFinTexto)
-
-    -- Calcular el número total de días en el mes correspondiente a la fecha más alta seleccionada
-    VAR DiasDelMes = DAY(EOMONTH(FechaFin, 0))
-
-    -- Calcular el número de días seleccionados en el rango
-    VAR DiasSeleccionados = DATEDIFF(FechaInicio, FechaFin, DAY) + 1
-
-    VAR ProyeccionEur = [Venta kg Abel] / DiasSeleccionados * DiasDelMes
-
-    RETURN
-        ProyeccionEur
-
-
-
-Venta € anterior MES = 
--- Variables para convertir las fechas seleccionadas (formato texto) a fechas
-VAR FechaInicioTexto = MIN(dFechas[EjercicioMesDia]) -- Fecha seleccionada más baja (texto)
-VAR FechaFinTexto = MAX(dFechas[EjercicioMesDia])   -- Fecha seleccionada más alta (texto)
-
--- Convertir texto a tipo fecha
-VAR FechaInicio = DATEVALUE(FechaInicioTexto)
-VAR FechaFin = DATEVALUE(FechaFinTexto)
-
--- Calcular las fechas del rango del año anterior
-VAR FechaInicioAnioAnterior = EDATE(FechaInicio, -12)
-VAR FechaFinAnioAnterior = EDATE(FechaFin, -12)
-
--- Calcular las ventas para el rango del año anterior
-VAR VentasAnioAnterior =
+-- Obtener el presupuesto asignado a la última fecha del mes correspondiente
+VAR PresupuestoMensual = 
     CALCULATE(
-        [Venta € Abel],
+        [Importe presupuesto Abel],
         FILTER(
-            ALL('abel_fvent_fech'),
-            'abel_fvent_fech'[fecha] >= FechaInicioAnioAnterior &&
-            'abel_fvent_fech'[fecha] <= FechaFinAnioAnterior
+            ALL(dFechas), 
+            dFechas[Date] = EOMONTH(FechaSeleccionada, 0) -- Última fecha del mes
         )
     )
 
 RETURN
-    VentasAnioAnterior
+    PresupuestoMensual
 
-
-Venta € anterior entre fechas = 
-IF(
-    [Dias_Mes_O_Ano] = [Dias_Pasados_Mes], 
-    [Abel Venta € anterior], 
-    [Abel Venta € anterior] / [Dias_Mes_O_Ano] * ([Dias_Pasados_Mes] - 1)
-)
-
-
-Venta € anterior MES = 
--- Variables para convertir las fechas seleccionadas (formato texto) a fechas
-VAR FechaInicioTexto = MIN(dFechas[EjercicioMesDia]) -- Fecha seleccionada más baja (texto)
-VAR FechaFinTexto = MAX(dFechas[EjercicioMesDia])   -- Fecha seleccionada más alta (texto)
-
--- Convertir texto a tipo fecha
-VAR FechaInicio = DATEVALUE(FechaInicioTexto)
-VAR FechaFin = DATEVALUE(FechaFinTexto)
-
--- Calcular las fechas del rango del año anterior
-VAR FechaInicioAnioAnterior = EDATE(FechaInicio, -12)
-VAR FechaFinAnioAnterior = EDATE(FechaFin, -12)
-
--- Calcular las ventas para el rango del año anterior
-VAR VentasAnioAnterior =
-    CALCULATE(
-        [Venta € Abel],
-        FILTER(
-            ALL('abel_fvent_fech'),
-            'abel_fvent_fech'[fecha] >= FechaInicioAnioAnterior &&
-            'abel_fvent_fech'[fecha] <= FechaFinAnioAnterior
-        )
-    )
-
-RETURN
-    VentasAnioAnterior
-
-
-
-Proyección kg MES. = 
-    VAR ProyeccionEur = [Venta kg Abel] / [DiasSeleccionados] * [DiasDelMes]
-    RETURN
-        ProyeccionEur
-
-
-
-Venta € Abel = SUM(abel_fvent_fech[subtotalConRappel])
-
-
-Presupuesto € AÑO TOP = 
-
-    VAR FechaInicioTexto = MIN(dFechas[EjercicioMesDia]) -- Texto seleccionado más bajo
-    VAR FechaFinTexto = MAX(dFechas[EjercicioMesDia])   -- Texto seleccionado más alto
-
-    -- Convertir texto a tipo fecha
-    VAR FechaInicio = DATEVALUE(FechaInicioTexto)
-    VAR FechaFin = DATEVALUE(FechaFinTexto)
-
-    -- Obtener el presupuesto del mes al que pertenece la fecha más alta seleccionada
-    VAR PresupuestoMensual = 
-        CALCULATE(
-            [Importe presupuesto Abel],
-            FILTER(
-                ALL(dFechas), 
-                dFechas[Date] = EOMONTH(FechaFin, 0) -- Última fecha del mes correspondiente
-            )
-        )
-
-    -- Calcular el número total de días en el mes correspondiente a la fecha más alta seleccionada
-    VAR DiasDelMes = DAY(EOMONTH(FechaFin, 0))
-
-    -- Calcular el número de días seleccionados en el rango
-    VAR DiasSeleccionados = DATEDIFF(FechaInicio, FechaFin, DAY) + 1
-
-    -- Calcular el presupuesto proporcional basado en los días seleccionados
-    VAR PresupuestoProporcional = (PresupuestoMensual / DiasDelMes) * DiasSeleccionados
-
-    RETURN
-        PresupuestoProporcional
-
-
-Presupuesto KG Mes TOP = 
-    VAR FechaInicioTexto = MIN(dFechas[EjercicioMesDia]) -- Texto seleccionado más bajo
-    VAR FechaFinTexto = MAX(dFechas[EjercicioMesDia])   -- Texto seleccionado más alto
-
-    -- Convertir texto a tipo fecha
-    VAR FechaInicio = DATEVALUE(FechaInicioTexto)
-    VAR FechaFin = DATEVALUE(FechaFinTexto)
-
-    -- Obtener el presupuesto del mes al que pertenece la fecha más alta seleccionada
-    VAR PresupuestoMensual = 
-        CALCULATE(
-            [Kg presupuesto Abel],
-            FILTER(
-                ALL(dFechas), 
-                dFechas[Date] = EOMONTH(FechaFin, 0) -- Última fecha del mes correspondiente
-            )
-        )
-
-    -- Calcular el número total de días en el mes correspondiente a la fecha más alta seleccionada
-    VAR DiasDelMes = DAY(EOMONTH(FechaFin, 0))
-
-    -- Calcular el número de días seleccionados en el rango
-    VAR DiasSeleccionados = DATEDIFF(FechaInicio, FechaFin, DAY) + 1
-
-    -- Calcular el presupuesto proporcional basado en los días seleccionados
-    VAR PresupuestoProporcional = (PresupuestoMensual / DiasDelMes) * DiasSeleccionados
-
-    RETURN
-        PresupuestoProporcional
 
 
 Z Presupuesto kg AÑO TOP = [Z Presupuesto € BOTTOM] / 366 * [DiasSeleccionados]
+
+
+Imp Pres 2024.
+[Importe Vendido
+Imp Pres 2024.
+
+Importe presupuesto Abel = CALCULATE([Kg o euros valor Abel], pres2024Abel[Concepto] = "euros")
+
+Imp Pres 2024. = calculate([Importe Presupuestado 2024.], 'outPresupuesto2024-semanas'[concepto] = "IMP 2024")
+
+pres2024Abel
+
+Presupuesto € Abel valor entreFechas = 
+    if ([Dias_Mes_O_Ano] = [Dias_Pasados_Mes],
+       [Imp Pres 2024.],
+       [Imp Pres 2024.] / [Dias_Mes_O_Ano] * ([Dias_Pasados_Mes] - 1))
+
+
+182204400
+
+   [Kg Pres 2024],

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Formulario Validación</title>
+    <script src="validaciones.js" defer></script>
+    <style>
+        label {
+            width: 150px;
+            float: left;
+            margin-bottom: 5px;
+        }
+        input,
+        select {
+            width: 150px;
+            float: left;
+            margin-bottom: 5px;
+        }
+        fieldset {
+            background: #66CCCC;
+            width: 350px;
+            border: thick solid #306;
+        }
+        legend {
+            background-color: #FFF;
+            padding: 5px;
+        }
+        #errores {
+            background: #FF6633;
+            color: white;
+            padding: 10px;
+            margin-top: 271px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Formulario de Validación</legend>
+        <form id="formulario" action="#" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" />
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" name="apellidos" id="apellidos" />
+            <label for="edad">Edad:</label>
+            <input type="text" name="edad" id="edadInput" maxlength="3" />
+            <label for="nif">NIF:</label>
+            <input type="text" name="nif" id="nifInput" />
+            <label for="email">E-mail:</label>
+            <input type="text" name="email" id="emailInput" />
+            <label for="provincia">Provincia:</label>
+            <select name="provincia" id="provinciaSelect">
+                <option value="0" selected>Seleccione Provincia</option>
+                <option value="C">A Coruña</option>
+                <option value="LU">Lugo</option>
+                <option value="OU">Ourense</option>
+                <option value="P">Pontevedra</option>
+            </select>
+            <label for="fecha">Fecha Nacimiento:</label>
+            <input type="text" name="fecha" id="fechaInput" />
+            <label for="telefono">Teléfono:</label>
+            <input type="text" name="telefono" id="telefonoInput" maxlength="9" />
+            <label for="hora">Hora de visita:</label>
+            <input type="text" name="hora" id="horaInput" />
+            <input type="reset" value="Limpiar" id="inputReset" />
+            <input type="submit" value="Enviar" id="inputSubmit" />
+        </form>
+        <div id="errores"></div>
+    </fieldset>
+</body>
+
+</html>
