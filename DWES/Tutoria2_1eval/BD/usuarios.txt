@@ -1,0 +1,5 @@
+tabla usuarios: 
+admin/secreto
+gestor/pass.
+
+usuario de conexion a la BD: gestor/secreto
