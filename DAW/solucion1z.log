@@ -1,17 +1,17 @@
 1. Instalar el servidor web Apache desde terminal.
-    apt install systmemd apache2 (instalar apache)
+    apt install apache2 (instalar apache)
 
 
 2. Comprobar que está funcionando el servidor Apache desde terminal.
-    sudo systemctl status apache2 (compruebo el estado)
+    sudo systemctl status apache2 (compruebo el estado http://127.0.0.1/?hola http://localhost/?hola)
 
 
 3. Comprobar que está funcionando el servidor Apache desde navegador.
     sudo systemctl enable apache2 (habilitar para que se inicie el servidor al arrancar el equipo
 
-4. Cambiar el puerto por el cual está escuchando Apache pasándolo al puerto 82.
-    sudo nano /etc/apache2/ports.conf
-    sudo nano /etc/apache2/sites-available/000-default.conf
+4. Cambiar el puerto por el cual está escuchando Apache pasándolo al puerto 82
+    sudo nano /etc/apache2/ports.conf (Listen 82)
+    sudo nano /etc/apache2/sites-available/000-default.conf (80 > 82)
     sudo systemctl restart apache2
     
     guardo la configuración cambiando el puerto de 80 a 82
@@ -21,7 +21,7 @@
     sudo systemctl restart apache2
     
     y ahora tengo el servidor en el puerto :82, puedo comprobarlo en el navegador
-    http://localhost:82
+    http://localhost:82 :)
 
 
 5. Instalar el servidor de aplicaciones Tomcat.
