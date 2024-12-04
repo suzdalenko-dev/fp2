@@ -1,0 +1,9 @@
+1. Instalar el servidor web Apache desde terminal.
+
+2. Comprobar que está funcionando el servidor Apache desde terminal.
+
+3. Comprobar que está funcionando el servidor Apache desde navegador.
+
+4. Cambiar el puerto por el cual está escuchando Apache pasándolo al puerto 82.
+
+5. Instalar el servidor de aplicaciones Tomcat.

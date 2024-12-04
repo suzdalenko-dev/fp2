@@ -1,0 +1,57 @@
+1. Instalar el servidor web Apache desde terminal.
+    apt install systmemd apache2 (instalar apache)
+
+
+2. Comprobar que está funcionando el servidor Apache desde terminal.
+    sudo systemctl status apache2 (compruebo el estado)
+
+
+3. Comprobar que está funcionando el servidor Apache desde navegador.
+    sudo systemctl enable apache2 (habilitar para que se inicie el servidor al arrancar el equipo
+
+4. Cambiar el puerto por el cual está escuchando Apache pasándolo al puerto 82.
+    sudo nano /etc/apache2/ports.conf
+    sudo nano /etc/apache2/sites-available/000-default.conf
+    sudo systemctl restart apache2
+    
+    guardo la configuración cambiando el puerto de 80 a 82
+    aquí modifico <VirtualHost *:80> a <VirtualHost *:82>
+    
+    y ahora reinicio el servidor:
+    sudo systemctl restart apache2
+    
+    y ahora tengo el servidor en el puerto :82, puedo comprobarlo en el navegador
+    http://localhost:82
+
+
+5. Instalar el servidor de aplicaciones Tomcat.
+    java -version (comprobar si tengo java y que version instalada)
+    apt install openjdk-17-jdk (instalar java)
+
+    cd /tmp (voy a directorio temporal)
+    wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.81/bin/apache-tomcat-9.0.81.tar.gz (descargar la ultima versión de tomcat)
+
+    sudo mkdir /opt/tomcat (crear carpeta /opt/tomcat)
+    sudo tar xzvf apache-tomcat-9.0.96.tar.gz -C /opt/tomcat –strip-components=1 (se extrae el archivo descargado)
+    (creo el grupo y usuario tomcat para el uso seguro de apache tomcat)
+    sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat    (-r: Crea una cuenta de sistema, -m: Crea el directorio home del usuario si no existe, -U: Crea un grupo con el mismo nombre que el usuario y añade al usuario a ese grupo, -d /opt/tomcat: Especifica el directorio home del usuario. Aquí se establece en /opt/tomcat, -s /bin/false: Establece el shell de inicio de sesión del usuario a /bin/false, lo que impide que el usuario pueda iniciar sesión interactiva en el sistema  )
+    sudo chown -R tomcat: /opt/tomcat
+
+    compruebo versiones de java instaladas: update-alternatives --config java
+    actualizo el archivo sudo nano /etc/systemd/system/tomcat.service (con la ruta de
+    JAVA_HOME que tengo en el sistema)
+    sudo nano /etc/systemd/system/tomcat.service
+    [Unit] Description=Apache Tomcat Web Application Container After=network.target [Service]
+    Type=forking User=tomcat Group=tomcat Environment="JAVA_HOME=/usr/lib/jvm/java-17-openjdkamd64" Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+    Environment="CATALINA_HOME=/opt/tomcat" Environment="CATALINA_BASE=/opt/tomcat"
+    Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+    Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+    ExecStart=/opt/tomcat/bin/startup.sh ExecStop=/opt/tomcat/bin/shutdown.sh [Install]
+    WantedBy=multi-user.target
+
+    sudo systemctl status tomcat.service (comprobar servicio tomcat)
+
+    recargar tomcat:
+    sudo systemctl daemon-reload
+    sudo systemctl start tomcat
+    sudo systemctl status tomcat.service

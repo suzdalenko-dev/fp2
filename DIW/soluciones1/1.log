@@ -1,0 +1,148 @@
+Solución de la tarea para DIW01.
+SOLUCIONES
+
+Apartado Nº1.
+
+Realizar una clasificación de todos los elementos mencionados en el enunciado según sean: elementos de identificación, navegación, contenido o interacción.
+
+Elementos de identificación:
+El nombre del cartel que figura encima de la puerta del local es: "Folio y medio".
+Elementos de navegación:
+Las tres secciones: Escritura y útiles escolares - Arte y creatividad - Organización y oficina
+El enlace al contacto.
+El enlace en el logotipo a la página principal.
+Elementos de contenido:
+Mostrar con fotografías los artículos que se venden.
+Mostrar la información de contacto con la dirección, el teléfono y un croquis de su ubicación.
+La animación de la portada o página principal.
+Elementos de interacción:
+Permitir la lectura del sitio en dos idiomas: Castellano y Francés.
+Apartado Nº2.
+
+Indica cuál es el tipo de estructura de navegación más adecuado y explica el motivo.
+
+El tipo más adecuado es el Jerárquico.
+
+MOTIVO
+Es un sitio Web poco complejo con un número pequeño de secciones que son independientes entre sí y que sus contenidos no tienen porque leerse secuencialmente.
+
+Aunque al ser un sitio web tan sencillo podría perfectamente tener una estructura reticular siempre y cuando la zona de navegación esté permanentemente visible 
+y cada sección tenga una única página de contenidos que se muestra al seleccionar la sección.
+
+Apartado Nº3.
+
+Elabora una guía de estilos indicando toda la información que consideres relevante en función de los elementos que figuran en el enunciado.
+
+En la guía de estilos debe figurar:
+
+Tamaño y formato de fotos y logos.
+Según el enunciado tenemos:
+
+El cartel que figura encima de la puerta de local es el distintivo que identifica el negocio. 
+Se puede emplear como logo o como fotografía dentro del encabezado. 
+Habría que indicar el tamaño en ancho por alto en píxeles. (Ejemplo: 500x200). 
+No podemos especificar la proporción exacta porque no disponemos de la información suficiente.
+El tamaño de las fotos que acompañan a las descripciones de los productos que elabora la panadería. 
+Lo lógico es que sean todas del mismo tamaño para dar consistencia a nuestra página. 
+El tamaño va a depender de si la distribución de los diferentes productos dentro de los contenidos la hacemos en una sólo columna, en dos o en tres. 
+(200x150), (400x300) son medidas posibles.
+El tamaño de la imagen del croquis de la ubicación. 
+Esta imagen puede ser un poco más grande y ocupar casi todo el espacio reservado a los contenidos (500x375).
+El tamaño de la animación de la página principal.
+(todos los tamaños son aproximados).
+
+Tipografía.
+Según el enunciado tenemos:
+
+Los elementos de interacción que me permiten cambiar el idioma. Hay que especificar el tipo, tamaño y aspecto de la fuente.
+Los elementos de navegación que me permiten cambiar entre las secciones y el enlace al Contacto. Hay que especificar el tipo, tamaño y aspecto de la fuente.
+La información relativa a cada producto. Hay que especificar el tipo, tamaño y aspecto de la fuente.
+La información de contacto. Hay que especificar el tipo, tamaño y aspecto de la fuente.
+Colores.
+Según el enunciado tenemos:
+
+Los elementos de interacción que me permiten cambiar el idioma. Hay que especificar el color de la fuente y el color del fondo.
+Los elementos de navegación que me permiten cambiar entre las secciones y el enlace al Contacto.
+Hay que especificar color de la fuente y el color del fondo tanto antes de visitar el enlace como después.
+La información relativa a cada producto. Hay que especificar el color de la fuente y el color del fondo.
+La información de contacto. Hay que especificar color de la fuente y el color de fondo.
+Además, si nuestra página no ocupa todo el ancho de la ventana habría que especificar el color que figurará de fondo.
+También se podrían especificar los colores de fondo de la zona del encabezado y contenidos, si los hubiera.
+Incluso se podría especificar las combinaciones de colores empleadas para cada una de las secciones ya que es una buena forma de indicar en que sección se encuentra el usuario.
+Iconografía
+
+Aunque del enunciado no se desprende que se utilice ningún icono se podrían especificar iconos en la zona de navegación, en cuyo caso, 
+habría que realizar una breve descripción del significado de cada icono.
+
+Estructuras
+Las posibles soluciones son muy variadas, ya que aquí entra en juego también la capacidad creativa de cada persona y sus gustos personales a la hora de navegar.
+Se propone una solución que con dos bocetos distintos se resuelve el problema del enunciado:
+
+Boceto 1. Se aplicar a la página mostrada al entrar en el sitio Web y a la página de contacto.
+Boceto 2. Se aplica a cada una de las secciones.
+Ilustración de un boceto propuesto para aplicar a la página mostrada al entrar en el sitio Web y a la página de contacto.
+
+Ilustración de un boceto propuesto para aplicar acada una de las secciones de la solución propuesta.
+
+A continuación se describen la correspondencia de cada número contenido en una elipse:
+
+Zona del logo de la empresa.
+Zona de una imagen decorativa.
+Boceto 1 - General.
+Boceto 2 - Propia de la sección.
+Elemento de la zona de navegación (Sección Escritura y útiles escolares).
+Elemento de la zona de navegación (Sección Arte y creatividad).
+Elemento de la zona de navegación (Sección Organización y oficina).
+Zona de contenido.
+Fondo de la página en el navegador.
+Animación en la página de portada y croquis del contacto en la página del Contacto.
+Imagen del producto.
+Saludo de bienvenida o breve descripción del negocio en la página de portada e información de contacto para la página del Contacto.
+Descripción del producto.
+Elementos de interacción: Idiomas: Castellano y Francés.
+Enlace al contacto.
+TAMAÑO.
+Hay que especificar los tamaños de cada una de las zonas marcadas con elipses y si el contenido irá centrado horizontal y/o verticalmente.
+
+COMPORTAMIENTO
+El encabezado permanecerá visible en todo momento (zonas 1, 2, 3, 4, 5, 10 y 11)
+
+El elemento de la zona 2 varía según la página sea de Portada, Sección o Contacto.
+
+Apartado Nº4.
+
+Empleando el XHTML. Codifica la estructura de tu página principal empleando tablas.
+
+El enunciado pide la solución empleando tablas. 
+Aquí se dará la solución adaptada al boceto de la página principal sin especificar colores, tamaños o el contenido de cada celda, 
+indicando mediante un número dentro de la celda, la zona a la que hace referencia en el boceto.
+
+<html>
+  <head>
+     <title>Apartado 4</title>
+  </head>
+  <body>
+     <div>
+        <table border="2">
+            <tr><td rowspan="8"><p>&nbsp;7</p></td>
+                <td rowspan="3" colspan="7"><p>&nbsp;1</p></td>
+                <td rowspan="3" colspan="2"><p>&nbsp;2</p></td>
+                <td><p>&nbsp;10</p></td>
+                <td rowspan="8"><p>&nbsp;7</p></td>
+            </tr>
+            <tr><td><p>&nbsp;</p></td></tr>
+            <tr><td><p>&nbsp;11</p></td></tr>
+            <tr><td colspan="7"><p>&nbsp;</p></td>
+                <td><p>&nbsp;3</p></td>
+                <td><p>&nbsp;4</p></td>
+                <td><p>&nbsp;5</p></td></tr>
+            <tr><td rowspan="4"><p>6</p></td>
+                <td colspan="8"><p>&nbsp;6</p></td>
+                <td rowspan="4"><p>6</p></td></tr>
+            <tr><td colspan="8"><p>&nbsp;8</p></td></tr>
+            <tr><td colspan="8"><p>&nbsp;9</p></td></tr>
+            <tr><td colspan="8"><p>6</p></td></tr>
+         </table>
+      </div>
+   </body>
+</html>

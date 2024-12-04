@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Header Table</title>
+    <style>
+        /* Contenedor de la tabla */
+        .table-container {
+            max-height: 99vh; /* Limita la altura del contenedor */
+            overflow-y: auto; /* Activa el scroll vertical */
+            overflow-x: auto; /* Activa el scroll horizontal si es necesario */
+            position: relative; /* Necesario para sticky */
+           
+        }
+        /* Estilos básicos de la tabla */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        /* Encabezado de la tabla */
+        .styled-table thead th {
+            position: sticky; /* Hace que los encabezados sean "sticky" */
+            top: 0; /* Se pega a la parte superior del contenedor */
+            z-index: 2; /* Se asegura de estar sobre el resto de las filas */
+            background-color: green; /* Fondo verde para el encabezado */
+            color: white; /* Texto blanco */
+            padding: 10px; /* Espaciado dentro de las celdas */
+            border: 1px solid #ddd; /* Borde del encabezado */
+        }
+
+    
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Filas de ejemplo -->
+                <!-- Puedes repetir este bloque con más datos -->
+                <script>
+                    for (let i = 1; i <= 100; i++) {
+                        document.write(`
+                            <tr>
+                                <td>${i}</td>
+                                <td>Código-${i}</td>
+                                <td>Producto ${i}</td>
+                                <td>${(Math.random() * 100).toFixed(2)}</td>
+                                <td>${Math.floor(Math.random() * 50) + 1}</td>
+                                <td>${(Math.random() * 500).toFixed(2)}</td>
+                                <td>${new Date().toLocaleDateString()}</td>
+                            </tr>
+                        `);
+                    }
+                </script>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

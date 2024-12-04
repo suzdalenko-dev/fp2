@@ -1,0 +1,99 @@
+Solución de la tarea para DIW02.
+SOLUCIONES
+
+PRIMERA PARTE (trabajo teórico).
+
+Haz un documento donde se relacionen y resuman las Leyes o Reales Decretos (en adelante RR.DD.) españoles relacionadas con el tema de la accesibilidad Web.
+
+Desde el año 2002, en España se han desarrollado varias leyes que definen los niveles de accesibilidad y fechas de cumplimiento:
+
+Ley 34/2002 de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico.
+Real Decreto 366/2007 de 16 de marzo, de accesibilidad y no discriminación de las personas con discapacidad en sus relaciones con la Administración General del Estado.
+Ley 27/2007, de 23 de octubre, por la que se reconocen las lenguas de signos españolas y se regulan los medios de apoyo a la comunicación oral de las personas sordas,
+con discapacidad auditiva y sordociegas.
+Real Decreto 1494/2007, de 12 de noviembre, por el que se aprueba el Reglamento sobre las condiciones básicas para el acceso de las personas con discapacidad a la sociedad de la información.
+Ley 26/2011, de 1 de agosto, de adaptación normativa a la Convención Internacional sobre los Derechos de las Personas con Discapacidad.
+Real Decreto Legislativo 1/2013, de 29 de noviembre, por el que se aprueba el Texto Refundido de la Ley General de derechos de las personas con discapacidad y de su inclusión social.
+Real Decreto 1112/2018, de 7 de septiembre, sobre accesibilidad de los sitios web y aplicaciones para dispositivos móviles del sector público.
+Esta es sólo la relación de Leyes y Reales Decretos. Los resúmenes no se dan porque pueden ser muy diversos aunque se dan unas orientaciones a la tutoría sobre la corrección.
+
+En el mismo documento del apartado anterior haz una tabla donde se indique para cada una de las partes del diseño propuesto en la tarea de la unidad de trabajo "Planificación de Interfaces gráficas",
+ el tipo o tipos de discapacidad: visual, auditiva, cognitiva, motriz que habrá que tener en cuenta.
+
+Discapacidades a tener en cuenta en el diseño.
+Parte a realizar en el diseño
+
+Discapacidades a tener en cuenta
+
+1. Animación donde se vea el proceso de encuadernación.	
+Visual, Auditiva
+
+2. Permitir la lectura del sitio en dos idiomas: Castellano y Francés.	
+Visual
+
+3. Tener tres secciones.	
+Visual
+
+4. Mostrar los productos que se venden, descripción y fotografía.	
+Visual
+
+5. Mostrar la información de contacto con la dirección, el teléfono y un croquis de su ubicación..	
+Visual
+
+Esta solución es correcta ya que el diseño que se pretende es ante todo visual y por lo tanto es la discapacidad visual la principal a tener en cuenta:
+
+A la hora de comentar los enlaces para que los lectores de pantalla puedan indicarlos correctamente, tanto para la elección del idioma como para ir a cada una de las secciones o la dirección de contacto.
+A la hora de describir los dibujos de la animación, las imágenes que acompañan a los productos o el croquis de la ubicación.
+Se ha indicado la discapacidad auditiva a tener en cuenta en la animación porque cualquier animación audioguiada debería estar también subtitulada.
+
+Podríamos añadir la discapacidad cognitiva en las tareas 1 y 4 para tener en cuenta a la hora de realizar la redacción de los subtítulos o de la audioguía y a la hora de redactar el sistema 
+de elaboración de cada producto.
+
+La tabla representa la solución mínima admisible.
+
+SEGUNDA PARTE (Trabajo teórico-práctico).
+
+Enlace al documento con la solución de esta parte:
+
+Solución a la segunda parte de la tarea.
+
+
+Tabla de comprobación de accesibilidad.
+PAUTA	CRITERIO DE ÉXITO	TÉCNICA	TEST
+Pauta 1. Alternativas textuales.	
+    Criterio de éxito 1. Contenido no textual.	
+        G94. Crear un texto alternativo que sirva al mismo propósito y presente la misma información que el contenido no textual original.	
+            Eliminar, ocultar o enmascarar el contenido no textual.
+            Sustituirlo por el texto alternativo, Comprobar que no se pierde ninguna información. 
+            Si el contenido textual contiene palabras que son importantes para entender el contenido deberán incluirse como texto alternativo.
+
+        G100. Proporcionar un nombre descriptivo al contenido no textual.	
+            Comprobar que el texto alternativo proporciona un nombre descriptivo.
+            Comprobar que el texto alternativo proporciona un nombre que previamente se ha dado en los contenidos no textuales por el autor otro.
+
+Pauta 2. Contenido dependiente del tiempo.	
+    Criterio de éxito 1. Sólo audio y sólo vídeo (pregrabados).	
+        G159: Ofrecer una alternativa para los medios de comunicación basados en el tiempo de contenido de sólo vídeo.	
+            Ver el contenido de sólo vídeo.
+            Comprobar que la transcripción textual incluye la misma información presentada en el vídeo.
+            Si el vídeo incluye personajes, comprobar que la transcripción identifica cada personaje de forma que se sabe quién dice cada cosa en todo momento.
+            La transcripción puede determinarse por programa a partir de la alternativa textual del contenido sólo vídeo.
+            Si la versión alternativa está en otra página, comprobar que los enlaces están disponible y que permiten acceder a los usuarios a dichas versiones.
+
+        G166: Proveer de audio que describe el contenido de vídeo importante y lo describe como tal.	
+            Comprobar que existe un vínculo a una alternativa de audio inmediatamente antes o después del contenido de sólo vídeo.
+
+    Criterio de éxito 2. Subtítulos (pregrabados).	
+            G87: Proporcionar subtítulos.	
+                Activar la función de subtítulos del reproductor multimedia.
+                Ver el contenido multimedia sincronizado.
+                Comprobar que los subtítulos (de todos los diálogos y sonidos importantes) son visibles.
+
+    Criterio de éxito 3. Descripciones de audio o medios de comunicación alternativos (pregrabados).
+        G69: Proporcionar una alternativa para los medios de comunicación basados en el tiempo.	
+        Ver los medios de comunicación sincronizada referida a la alternativa de los medios de comunicación basados en el tiempo.
+        Comprobar que el diálogo en la versión alternativa coincide con el diálogo presentado en el medio sincronizado.
+        Comprobar que la alternativa de los medios de comunicación basados en el tiempo tienen descripción de los sonidos.
+        Comprobar que la alternativa de los medios de comunicación basados en el tiempo tiene descripciones de configuración y cambios de configuración.
+        Comprobar que la alternativa de los medios de comunicación basados en el tiempo tienen una descripción de las acciones y expresiones de los "actores" (personas, animales, etc.).
+        Si la versión o versiones alternativas están en páginas diferentes, comprobar que el enlace se encuentra disponible permitiendo al usuario acceder a las otras versiones.

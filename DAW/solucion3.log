@@ -1,0 +1,9 @@
+1. Instalar el JDK 8
+
+2. Crear usuario para WildFly.
+
+3. Descargar e instalar WidlFly 19.0.0 Final.
+
+4. Configurar systemd y el archivo wildfly.conf.
+
+5. Configurar la autenticación de Wildfly.
