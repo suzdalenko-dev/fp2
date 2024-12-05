@@ -72,40 +72,31 @@ Apache Tomcat Download.
 
 Descarga la versión más reciente (ejemplo con Tomcat 10.1.33):
 
-bash
-Copiar código
+estoy en la raiz y descargo el archivo aqui mismo
+
 wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.33/bin/apache-tomcat-10.1.33.tar.gz
 Extrae el archivo:
 
-bash
-Copiar código
-sudo tar -xvzf apache-tomcat-10.1.33.tar.gz -C /opt/
+sudo tar -xvzf apache-tomcat-10.1.33.tar.gz -C /opt/  (-C especefica el directorio destino)
 Renombra el directorio para simplificar:
 
-bash
-Copiar código
-sudo mv /opt/apache-tomcat-10.1.33 /opt/tomcat
+
+sudo mv /opt/apache-tomcat-10.1.33 /opt/tomcat (con el mv hay que consegir que la estuctura sea /opt/tomcat/bin )
 5. Configurar Permisos
 Cambia el propietario del directorio /opt/tomcat al usuario tomcat:
 
-bash
-Copiar código
-sudo chown -R tomcat:tomcat /opt/tomcat
+
+sudo chown -R tomcat:tomcat /opt/tomcat  
 Ajusta los permisos:
 
-bash
-Copiar código
 sudo chmod -R 755 /opt/tomcat
-6. Crear un Servicio Systemd para Tomcat
+
+Crear un Servicio Systemd para Tomcat
 Crea un archivo de servicio para Tomcat:
 
-bash
-Copiar código
 sudo nano /etc/systemd/system/tomcat.service
 Añade la siguiente configuración al archivo:
 
-ini
-Copiar código
 [Unit]
 Description=Apache Tomcat Web Application Container
 After=network.target
@@ -132,22 +123,16 @@ Guarda y cierra el archivo.
 
 Recarga los servicios de systemd:
 
-bash
-Copiar código
 sudo systemctl daemon-reload
 Inicia y habilita el servicio Tomcat:
 
-bash
-Copiar código
 sudo systemctl enable tomcat
 sudo systemctl start tomcat
 Verifica el estado del servicio:
 
-bash
-Copiar código
 sudo systemctl status tomcat
 
-
+http://127.0.0.1:8080
 
 
 
