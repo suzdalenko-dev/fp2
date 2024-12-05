@@ -31,10 +31,13 @@
 
     java -version (comprobar si tengo java y que version instalada)
     apt install openjdk-17-jdk (instalar java)
+    sudo apt install openjdk-11-jdk -y
+
 
     cd /tmp (voy a directorio temporal)
-    wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.81/bin/apache-tomcat-9.0.81.tar.gz (descargar la ultima versión de tomcat)
+    wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.81/bin/apache-tomcat-9.0.81.tar.gz (no existe)
          https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97.tar.gz
+         https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.33/bin/apache-tomcat-10.1.33.tar.gz
 
     sudo mkdir /opt/tomcat (crear carpeta /opt/tomcat)
     sudo tar xzvf apache-tomcat-9.0.96.tar.gz -C /opt/tomcat –strip-components=1 (se extrae el archivo descargado)
