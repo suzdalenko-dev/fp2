@@ -25,14 +25,21 @@
 
 
 5. Instalar el servidor de aplicaciones Tomcat.
+    tomcat version  11.0.1 java -   17 and latersudo
+                    10.1.33         11 and later
+                    9.0.97          8 and later
+
     java -version (comprobar si tengo java y que version instalada)
     apt install openjdk-17-jdk (instalar java)
 
     cd /tmp (voy a directorio temporal)
     wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.81/bin/apache-tomcat-9.0.81.tar.gz (descargar la ultima versión de tomcat)
+         https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97.tar.gz
 
     sudo mkdir /opt/tomcat (crear carpeta /opt/tomcat)
     sudo tar xzvf apache-tomcat-9.0.96.tar.gz -C /opt/tomcat –strip-components=1 (se extrae el archivo descargado)
+
+
     (creo el grupo y usuario tomcat para el uso seguro de apache tomcat)
     sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat    (-r: Crea una cuenta de sistema, -m: Crea el directorio home del usuario si no existe, -U: Crea un grupo con el mismo nombre que el usuario y añade al usuario a ese grupo, -d /opt/tomcat: Especifica el directorio home del usuario. Aquí se establece en /opt/tomcat, -s /bin/false: Establece el shell de inicio de sesión del usuario a /bin/false, lo que impide que el usuario pueda iniciar sesión interactiva en el sistema  )
     sudo chown -R tomcat: /opt/tomcat
