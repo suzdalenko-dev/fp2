@@ -24,7 +24,199 @@
     http://localhost:82 :)
 
 
-5. Instalar el servidor de aplicaciones Tomcat.
+5. APACHE TOMCAT
+1. Actualizar el Sistema
+Asegúrate de que el sistema esté actualizado:
+
+bash
+Copiar código
+sudo apt update && sudo apt upgrade -y
+2. Instalar Java 17
+Tomcat requiere Java para ejecutarse. Instalaremos OpenJDK 17, que es compatible con las últimas versiones de Tomcat.
+
+Instala OpenJDK 17:
+
+bash
+Copiar código
+sudo apt install openjdk-17-jdk -y
+Verifica la instalación de Java:
+
+bash
+Copiar código
+java -version
+Deberías ver algo como:
+
+arduino
+Copiar código
+openjdk version "17.x.x"
+Asegúrate de que JAVA_HOME apunte a Java 17:
+
+bash
+Copiar código
+sudo update-alternatives --config java
+La salida te mostrará las versiones instaladas y sus rutas. Copia la ruta de Java 17 (por ejemplo, /usr/lib/jvm/java-17-openjdk-amd64).
+
+3. Crear un Usuario Dedicado para Tomcat
+Crea un usuario del sistema llamado tomcat:
+
+bash
+Copiar código
+sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
+-r: Crea un usuario del sistema sin permisos de inicio de sesión.
+-m: Crea el directorio de inicio en /opt/tomcat.
+-U: Crea un grupo con el mismo nombre que el usuario.
+-s /bin/false: Desactiva el inicio de sesión del usuario.
+Verifica que el usuario fue creado:
+
+bash
+Copiar código
+id tomcat
+La salida debe mostrar algo como:
+
+scss
+Copiar código
+uid=1001(tomcat) gid=1001(tomcat) groups=1001(tomcat)
+4. Descargar Apache Tomcat
+Visita el sitio oficial de Apache Tomcat para encontrar la última versión estable:
+Apache Tomcat Download.
+
+Descarga la versión más reciente (ejemplo con Tomcat 10.1.33):
+
+bash
+Copiar código
+wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.33/bin/apache-tomcat-10.1.33.tar.gz
+Extrae el archivo:
+
+bash
+Copiar código
+sudo tar -xvzf apache-tomcat-10.1.33.tar.gz -C /opt/
+Renombra el directorio para simplificar:
+
+bash
+Copiar código
+sudo mv /opt/apache-tomcat-10.1.33 /opt/tomcat
+5. Configurar Permisos
+Cambia el propietario del directorio /opt/tomcat al usuario tomcat:
+
+bash
+Copiar código
+sudo chown -R tomcat:tomcat /opt/tomcat
+Ajusta los permisos:
+
+bash
+Copiar código
+sudo chmod -R 755 /opt/tomcat
+6. Crear un Servicio Systemd para Tomcat
+Crea un archivo de servicio para Tomcat:
+
+bash
+Copiar código
+sudo nano /etc/systemd/system/tomcat.service
+Añade la siguiente configuración al archivo:
+
+ini
+Copiar código
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+
+User=tomcat
+Group=tomcat
+
+[Install]
+WantedBy=multi-user.target
+Asegúrate de que JAVA_HOME apunte al directorio correcto para Java 17.
+
+Guarda y cierra el archivo.
+
+Recarga los servicios de systemd:
+
+bash
+Copiar código
+sudo systemctl daemon-reload
+Inicia y habilita el servicio Tomcat:
+
+bash
+Copiar código
+sudo systemctl enable tomcat
+sudo systemctl start tomcat
+Verifica el estado del servicio:
+
+bash
+Copiar código
+sudo systemctl status tomcat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Instalar el servidor de aplicaciones Tomcat.
     tomcat version  11.0.1 java -   17 and latersudo
                     10.1.33         11 and later
                     9.0.97          8 and later
