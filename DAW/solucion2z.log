@@ -100,10 +100,33 @@ directivas de autenticación en estos archivos mediante la directiva AllowOverri
  sudo nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
 Donde añadimos:
  <Directory /var/www/todo-empresa-tarea-daw02/delimitado>
- AllowOverride AuthConfig
+    AllowOverride AuthConfig
  </Directory>
 
+codigo completo seria:
+<VirtualHost *:80>
+    ServerName www.empresa-tarea-daw02.local
+    DocumentRoot /var/www/todo-empresa-tarea-daw02
+    ServerAlias empresa-tarea-daw02.local
+<Directory /var/www/todo-empresa-tarea-daw02>
+    Require all granted
+</Directory>
+<Directory /var/www/todo-empresa-tarea-daw02/delimitado>
+    AuthType Basic
+    AuthName "Acceso Restringido"
+    AuthUserFile /etc/apache2/.htpasswd
+    Require valid-user
+</Directory>
+</VirtualHost>
 
+sudo a2ensite empresa-tarea-daw02.conf
+
+Creamos un par de usuarios en el archivo /etc/apache2/passwords:
+ sudo htpasswd -c /etc/apache2/passwords roberto
+ sudo htpasswd /etc/apache2/passwords patricia
+ o
+ htpasswod passwords alexey ( si estoy dentro de /etc/apache2/ )
+El parámetro -c se usará solo en el momento de crear el archivo inicial. Para los siguientes usuarios se omitirá.
 
 
 
