@@ -117,9 +117,9 @@ Donde añadimos codigo completo seria:
 
 sudo a2ensite empresa-tarea-daw02.conf
 
-Creamos un par de usuarios en el archivo /etc/apache2/passwords:
- sudo htpasswd -c /etc/apache2/passwords roberto
- sudo htpasswd /etc/apache2/passwords patricia
+Creamos un par de usuarios en el archivo /etc/apache2/.htpasswd:
+ sudo htpasswd -c /etc/apache2/.htpasswd alexey
+ sudo htpasswd /etc/apache2/.htpasswd maria
  o
  htpasswod passwords alexey ( si estoy dentro de /etc/apache2/ )
 El parámetro -c se usará solo en el momento de crear el archivo inicial. Para los siguientes usuarios se omitirá.
