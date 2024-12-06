@@ -121,8 +121,53 @@ Creamos un par de usuarios en el archivo /etc/apache2/.htpasswd:
  sudo htpasswd -c /etc/apache2/.htpasswd alexey
  sudo htpasswd /etc/apache2/.htpasswd maria
  o
- htpasswod passwords alexey ( si estoy dentro de /etc/apache2/ )
+ htpasswod -c .htpasswod alexey ( si estoy dentro de /etc/apache2/ )
 El parámetro -c se usará solo en el momento de crear el archivo inicial. Para los siguientes usuarios se omitirá.
+FIN
+
+
+
+
+
+Apartado 5
+Pemitir el protocolo HTTPS en el virtualhost empresa-tarea-daw02
+En primer lugar, nos aseguramos de que el módulo SSL esté habilitado:
+ sudo a2enmod ssl
+
+Después, reiniciamos Apache para que el módulo SSL se active:
+ sudo systemctl restart apache2
+
+Instalamos el paquete openssl, dependiendo del sistema operativo puede estar ya instalado:
+ sudo apt install openssl
+
+ sudo mkdir /etc/apache2/ssl
+ Genera un certificado SSL autofirmado
+ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/empresa-tareacddaw02.key -out /etc/ssl/certs/empresa-tarea-daw02.crt
+
+Configura el Virtual Host para HTTPS
+nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
+
+<VirtualHost *:443>
+    ServerName empresa-tarea-daw02
+    DocumentRoot /var/www/empresa-tarea-daw02
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/empresa-tarea-daw02.crt
+    SSLCertificateKeyFile /etc/ssl/private/empresa-tarea-daw02.key
+    <Directory /var/www/empresa-tarea-daw02>
+        AllowOverride All
+    Require all granted
+    </Directory>
+</VirtualHost>
+
+sudo a2ensite empresa-tarea-daw02.conf
+sudo systemctl restart apache2
+
+
+
+
+
+
+
 
 
 
