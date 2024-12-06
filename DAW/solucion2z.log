@@ -1,4 +1,4 @@
-Apartado 1 http://www.empresa-tarea-daw02.local http://empresa-tarea-daw02.local
+Apartado 1 y 2: http://www.empresa-tarea-daw02.local http://empresa-tarea-daw02.local
 sudo apt update
 sudo apt upgrade -y
 
@@ -40,4 +40,79 @@ Y añadimos las líneas:
 
 
 Creamos un index.html de ejemplo dentro de /var/www/todo-empresa-tarea-daw02 y comprobamos
-que las URL que identifican a la empresa, www.empresa-tarea-daw02.local y empresa-tareadaw02.local, funcionan:
+que las URL que identifican a la empresa, http://www.empresa-tarea-daw02.local y http://empresa-tareadaw02.local, funcionan:
+
+
+
+
+
+
+
+Apartado 3:
+Configurar en el servidor el tipo MIME posible que permite la identificación correcta del
+vídeo presentación formato flv situado dentro del directorio videos y de nombre entrada.flv.
+En el servidor web Apache existe el archivo /etc/apache2/mods-available/mime.conf:
+ sudo nano /etc/apache2/mods-available/mime.conf (aqui encontramos una referencia al archivo /etc/mime.types, el cual contiene
+    la lista de tipo MIME reconocidos por el servidor,
+    esta arriba del todo:
+        TypesConfig /etc/mime.types
+    ) 
+
+Donde veremos una referencia al archivo /etc/mime.types, el cual contiene la lista de tipos MIME
+reconocidos por el servidor:
+ sudo nano /etc/mime.types
+
+En dicho archivo encontraremos una referencia al tipo de archivos flv:
+ video/x-flv flv
+Lo que indica que los ficheros de tipo flv ya están reconocidos por el servidor como ficheros de
+vídeo. Si no existiera dicha línea habría que añadirla manualmente y reiniciar el servidor apache.
+
+
+
+
+
+
+
+Apartado 4
+Crear el subdirectorio todo-empresa-tarea-daw02/delimitado teniendo en cuenta que:
+• El directorio todo-empresa-tarea-daw02 permite el acceso a cualquier usuario.
+• El subdirectorio todo-empresa-tarea-daw02/delimitado permite el acceso solamente al
+personal de la empresa que tenga el rol: admin.
+En primer lugar, creamos el subdirectorio delimitado:
+ sudo mkdir /var/www/todo-empresa-tarea-daw02/delimitado
+
+Creamos un fichero .htaccess dentro del directorio anterior:
+ sudo nano /var/www/todo-empresa-tarea-daw02/delimitado/.htaccess
+
+Con el siguiente contenido:
+
+    AuthType Basic
+    AuthName "Acceso limitado"
+    AuthUserFile /etc/apache2/passwords
+    AuthGroupFile /etc/apache2/groups
+    Require group admin
+
+Siguiendo las indicaciones de la documentación de Apache:
+https://httpd.apache.org/docs/current/en/howto/auth.html#lettingmorethanonepersonin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
