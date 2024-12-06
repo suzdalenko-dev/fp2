@@ -98,12 +98,8 @@ https://httpd.apache.org/docs/current/en/howto/auth.html#lettingmorethanoneperso
 Para usar archivos .htaccess será necesario tener una configuración en el servidor que permita poner
 directivas de autenticación en estos archivos mediante la directiva AllowOverride:
  sudo nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
-Donde añadimos:
- <Directory /var/www/todo-empresa-tarea-daw02/delimitado>
-    AllowOverride AuthConfig
- </Directory>
+Donde añadimos codigo completo seria:
 
-codigo completo seria:
 <VirtualHost *:80>
     ServerName www.empresa-tarea-daw02.local
     DocumentRoot /var/www/todo-empresa-tarea-daw02
