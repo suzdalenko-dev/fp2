@@ -140,9 +140,8 @@ Después, reiniciamos Apache para que el módulo SSL se active:
 Instalamos el paquete openssl, dependiendo del sistema operativo puede estar ya instalado:
  sudo apt install openssl
 
- sudo mkdir /etc/apache2/ssl
  Genera un certificado SSL autofirmado
- sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/empresa-tareacddaw02.key -out /etc/ssl/certs/empresa-tarea-daw02.crt
+ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/1.key -out /etc/ssl/certs/2.crt
 
 Configura el Virtual Host para HTTPS
 nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
