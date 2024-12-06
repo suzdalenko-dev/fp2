@@ -1,4 +1,4 @@
-Apartado 1
+Apartado 1 http://www.empresa-tarea-daw02.local http://empresa-tarea-daw02.local
 sudo apt update
 sudo apt upgrade -y
 
@@ -12,7 +12,7 @@ el acceso de la página web de la empresa en Internet al directorio del servidor
 Antes de comenzar, verificamos el contenido del directorio /var/www:
  ls -lah /var/www
 Comprobamos que solo existe el directorio por defecto, /var/www/html, y creamos el directorio del
-servidor web /var/www/todo-empresa-tarea-daw02:
+servidor web /var/www/todo-empresa-tarea-daw02: (aqui estara index.html)
  sudo mkdir /var/www/todo-empresa-tarea-daw02
 
 
@@ -24,3 +24,20 @@ Con el contenido:
  ServerName www.empresa-tarea-daw02.local
  ServerAlias empresa-tarea-daw02.local
  </VirtualHost>
+
+
+Habilitamos el VirtualHost recién creado:
+ sudo a2ensite empresa-tarea-daw02.conf
+Y recargamos el servicio apache2:
+ sudo systemctl reload apache2
+
+
+Para editar dicho archivo ejecutamos:
+ sudo nano /etc/hosts
+Y añadimos las líneas:
+ 127.0.0.1 www.empresa-tarea-daw02.local
+ 127.0.0.1 empresa-tarea-daw02.local
+
+
+Creamos un index.html de ejemplo dentro de /var/www/todo-empresa-tarea-daw02 y comprobamos
+que las URL que identifican a la empresa, www.empresa-tarea-daw02.local y empresa-tareadaw02.local, funcionan:
