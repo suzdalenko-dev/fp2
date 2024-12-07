@@ -135,86 +135,15 @@ a.) creo una carpeta en /var/www/suzdalenko en cual echo > "hello world">index.h
 b.) creo file /etc/apache2/sites-available/suzdalenko.conf contenido:
     <VirtualHost *:80>
         DocumentRoot /var/www/suzdalenko
-        ServerName www.suzdalenko
-        ServerAlias suzdalenko
+        ServerName www.suzdalenko.local
+        ServerAlias suzdalenko.local
     </VirtualHost>
+    a2ensite suzdalenko.conf
+    systemctl reload apache2
 c.) editar /etc/hosts contenido:
-    127.0.0.1 suzdalenko
+    127.0.0.1 suzdalenko.local
 
-Pemitir el protocolo HTTPS en el virtualhost empresa-tarea-daw02 -> suzdalenko
-En Debian y derivados, como Ubuntu, Apache posee por defecto en su instalación el fichero
-/etc/apache2/sites-available/default-ssl.conf, que contiene la configuración por defecto de SSL:
- sudo nano /etc/apache2/sites-available/default-ssl.conf
-
-Donde:
-• SSLEngine on : Activa o desactiva SSL
-• SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem : Certificado digital del propio
-servidor Apache
-• SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key : Clave privada del servidor
-Apache.
-
-En primer lugar, nos aseguramos de que el módulo SSL esté habilitado:
- sudo a2enmod ssl
-Después, reiniciamos Apache para que el módulo SSL se active:
- sudo systemctl restart apache2
-
-Instalamos el paquete openssl, dependiendo del sistema operativo puede estar ya instalado:
- sudo apt install openssl
-
-Generamos el certificado y la clave privada de nuestra autoridad de certificación (AC) en un
-directorio de nuestra elección:
- sudo mkdir /etc/apache2/ssl
- cd /etc/apache2/ssl
- sudo openssl req -new -nodes -keyout clave.key -out solicitud.csr
-
-Parámetros del comando:
-• -new: Crea una nueva solicitud de certificado.
-• -nodes: Genera una clave privada sin cifrar (sin contraseña).
-• -keyout clave.key: Guarda la clave privada en clave.key.
-• -out solicitud.csr: Guarda la solicitud de certificado en solicitud.csr.
-Este comando genera dos archivos:
-• La clave privada con el que firmarmos nuestros certificados: clave.key
-• El certificado con la clave pública de la AC: solicitud.csr
-Pedirá algunos datos: nombre de empresa, país, contraseña, etc. La contraseña se puede omitir, pero
-por seguridad es conveniente crearla para utilizarla cuando firmemos un certificado SSL .
-El common name debe ser la URL de acceso: empresa-tarea-daw02.local
-
-Creamos el certificado SSL autofirmado:
- sudo openssl x509 -in solicitud.csr -out certi.crt -req -signkey clave.key -days 365
-
-• -in empresa-tarea-daw02.csr: Especifica el archivo de solicitud de certificado.
-• -out empresa-tarea-daw02.crt: Crea el certificado y lo guarda en empresa-tarea-daw02.crt.
-• -req: Indica que se usará la solicitud de certificado para crear el certificado.
-• -signkey empresa-tarea-daw02.key: Firma el certificado con la clave privada empresa-tareadaw02.key.
-• -days 365: Especifica la duración del certificado (en días).
-
-
-Editamos la configuración SSL por defecto del archivo:
-    /etc/apache2/sites-available/suzdalenko.conf para indicar el certificado del servidor y su respectiva clave privada:
- sudo nano /etc/apache2/sites-available/suzdalenko.conf
-Y añadimos:
- <VirtualHost *:443>
- DocumentRoot /var/www/suzdalenko
- ServerName www.suzdalenko
- ServerAlias suzdalenko
- SSLEngine on
- SSLCertificateFile /etc/apache2/ssl/certi.crt
- SSLCertificateKeyFile /etc/apache2/ssl/clave.key
- </VirtualHost>
-
-Nos aseguramos de habilitar el virtualhost:
- sudo a2ensite suzdalenko.conf
-Y de que el fichero /etc/apache2/ports.conf incluya el valor Listen 443:
- cat /etc/apache2/ports.conf
-
-Listen 80
-<IfModule ssl_module>
-Listen 443
-</IfModule>
-<IfModule mod_gnutls.c>
-Listen 443
-<IfModule>
- sudo systemctl restart apache2
+solucion buena en el PDF
 
  FIN
 
@@ -224,3 +153,75 @@ Listen 443
 
 
 
+
+
+Apartado 6
+Configurar los archivos de registro como sigue:
+• Identificación log de acceso: empresa-tarea-daw02-access.log
+• Identificación log de error: empresa-tarea-daw02-error.log
+• Alias logformat: combined
+
+Para configurar los archivos de registro editaremos el fichero de configuración del virtualhost:
+ sudo nano /etc/apache2/sites-available/suzdalenko.conf
+
+Donde añadiremos las siguientes líneas dentro de cada virtualhost:
+ ErrorLog ${APACHE_LOG_DIR}/suzdalenko.log
+ CustomLog ${APACHE_LOG_DIR}/suzdalenko2.log combined
+
+ a2ensite /etc/apache2/sites-available/suzdalenko.conf
+
+ErrorLog define la ubicación del archivo de registro de errores.
+CustomLog define la ubicación del archivo de registro de acceso y el formato de registro.
+${APACHE_LOG_DIR} es una variable de entorno que generalmente apunta a 
+    /var/log/apache2. (aqui estan los logs)
+
+Podemos comprobar que ambos ficheros de log se han creado en /var/log/apache2:
+ ls -lah /var/log/apache2
+
+
+
+
+
+
+
+Apartado 7
+Rotar logs por intervalo temporal: cada 24 horas.
+En Ubuntu podemos encontrar los siguientes archivos de configuración para logrotate:
+1. /etc/logrotate.conf: Define los parámetros globales por defecto de logrotate.
+    cat /etc/logrotate.conf
+
+/etc/logrotate.d/apache2: Define el rotado de logs para apache2. Los parámetros que no se
+encuentren aquí usarán su valor del fichero /etc/logrotate.conf.
+
+nano /etc/logrotate.d/apache2
+
+Detalles de los parámetros:
+• daily: Rota los logs cada 24 horas.
+• missingok: No da error si el archivo de log no existe.
+• rotate 14: Mantiene los últimos 14 archivos de log.
+• compress: Comprime los archivos de log antiguos.
+• delaycompress: Retrasa la compresión hasta la siguiente rotación.
+• notifempty: No rota el log si está vacío.
+• create 640 root adm: Crea nuevos archivos de log con permisos 640 y asigna al usuario root
+y al grupo adm.
+• sharedscripts: Se asegura de que los scripts prerotate y postrotate se ejecuten solo una vez,
+no por cada archivo de log rotado.
+• prerotate y endscript: Se ejecutan antes de la rotación de los archivos de log. En este caso,
+ejecuta scripts en /etc/logrotate.d/httpd-prerotate si ese directorio existe.
+• postrotate y endscript: Se ejecutan después de la rotación de los archivos de log. Aquí se
+recarga Apache si el proceso está activo, utilizando invoke-rc.d y registrando el resultado
+con logg
+LA VERSION DE EJEMPLO SIGUE Y ES MEJOR SEGUIRLA POR EL PDF
+
+MI VERSION DEL LOGS ROTATE ES MAS CORTA:
+
+7. Rotar logs por intervalo temporal: cada 24horas
+Paso 1: Configurar logrotate para Apache
+sudo nano /etc/logrotate.d/apache2
+
+resulta que tengo configurada por default la rotación de logs diaria, daily
+
+puedo comprobar como funciona esto con el comando:
+sudo logrotate -d /etc/logrotate.d/apache2
+
+funciona correctamente

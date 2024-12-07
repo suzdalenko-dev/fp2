@@ -1,0 +1,171 @@
+Paso a paso para instalar JDK 8, configurar un usuario para WildFly, instalar WildFly 19.0.0 Final y realizar las configuraciones necesarias.
+1. Instalar JDK 8
+Actualizar los repositorios:
+bash
+Copiar código
+sudo apt update
+Instalar el JDK 8:
+bash
+Copiar código
+sudo apt install openjdk-8-jdk -y
+Verificar la instalación:
+bash
+Copiar código
+java -version
+Debería mostrar algo como:
+
+arduino
+Copiar código
+openjdk version "1.8.x"
+2. Crear un usuario para WildFly
+Crear el usuario y grupo:
+bash
+Copiar código
+sudo useradd -r -s /bin/false wildfly
+-r: Crea un usuario de sistema.
+-s /bin/false: El usuario no tiene acceso a la shell.
+3. Descargar e instalar WildFly 19.0.0 Final
+Descargar WildFly:
+bash
+Copiar código
+wget https://download.jboss.org/wildfly/19.0.0.Final/wildfly-19.0.0.Final.tar.gz
+Extraer el archivo:
+bash
+Copiar código
+sudo tar -xvzf wildfly-19.0.0.Final.tar.gz -C /opt
+Renombrar el directorio para facilitar su uso:
+bash
+Copiar código
+sudo mv /opt/wildfly-19.0.0.Final /opt/wildfly
+Cambiar los permisos del directorio:
+bash
+Copiar código
+sudo chown -R wildfly:wildfly /opt/wildfly
+4. Configurar systemd y el archivo wildfly.conf
+Crear el directorio de configuración:
+bash
+Copiar código
+sudo mkdir -p /etc/wildfly
+Crear y configurar el archivo wildfly.conf:
+Copiar el archivo de configuración predeterminado:
+
+bash
+Copiar código
+sudo cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf /etc/wildfly/
+Editar el archivo:
+
+bash
+Copiar código
+sudo nano /etc/wildfly/wildfly.conf
+Configurar las siguientes opciones:
+
+bash
+Copiar código
+WILDFLY_HOME="/opt/wildfly"
+WILDFLY_USER="wildfly"
+WILDFLY_MODE="standalone"
+WILDFLY_CONFIG="standalone.xml"
+WILDFLY_BIND="0.0.0.0"
+Copiar el script launch.sh:
+Este script se utiliza para iniciar WildFly correctamente:
+
+bash
+Copiar código
+sudo cp /opt/wildfly/docs/contrib/scripts/systemd/launch.sh /opt/wildfly/bin/
+sudo chmod +x /opt/wildfly/bin/*.sh
+Crear el archivo del servicio systemd:
+bash
+Copiar código
+sudo cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
+Editar el archivo del servicio:
+
+bash
+Copiar código
+sudo nano /etc/systemd/system/wildfly.service
+Asegúrate de que contenga:
+
+ini
+Copiar código
+[Unit]
+Description=The WildFly Application Server
+After=network.target
+
+[Service]
+Type=idle
+User=wildfly
+Group=wildfly
+ExecStart=/opt/wildfly/bin/launch.sh
+StandardInput=null
+
+[Install]
+WantedBy=multi-user.target
+Recargar los demonios de systemd:
+bash
+Copiar código
+sudo systemctl daemon-reload
+Iniciar el servicio WildFly:
+bash
+Copiar código
+sudo systemctl start wildfly
+Verificar el estado del servicio:
+bash
+Copiar código
+sudo systemctl status wildfly
+Habilitar el servicio para que inicie al arrancar el sistema:
+bash
+Copiar código
+sudo systemctl enable wildfly
+5. Configurar la autenticación de WildFly
+Agregar un usuario administrativo:
+Ejecutar el script add-user.sh:
+
+bash
+Copiar código
+sudo /opt/wildfly/bin/add-user.sh
+Sigue las instrucciones:
+
+Selecciona el tipo de usuario:
+a para un usuario de administración.
+Ingresa el nombre de usuario y la contraseña.
+Opcionalmente, asigna roles adicionales.
+Verificar la consola de administración:
+Accede a la consola de administración en un navegador web:
+
+arduino
+Copiar código
+http://<IP_DEL_SERVIDOR>:9990
+Usa el nombre de usuario y la contraseña configurados en el paso anterior para iniciar sesión.
+6. Configurar el acceso remoto (opcional)
+Si necesitas acceder a WildFly desde otra máquina, edita el archivo de configuración de standalone.xml:
+
+bash
+Copiar código
+sudo nano /opt/wildfly/standalone/configuration/standalone.xml
+Busca la sección <interfaces> y ajusta:
+
+xml
+Copiar código
+<interface name="management">
+    <inet-address value="${jboss.bind.address.management:0.0.0.0}"/>
+</interface>
+<interface name="public">
+    <inet-address value="${jboss.bind.address:0.0.0.0}"/>
+</interface>
+Reinicia WildFly:
+
+bash
+Copiar código
+sudo systemctl restart wildfly
+¡Con estos pasos, WildFly 19.0.0 Final estará instalado y configurado en tu servidor Ubuntu!
+
+
+
+
+
+
+
+
+
+
+
+

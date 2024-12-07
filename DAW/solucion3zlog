@@ -1,0 +1,291 @@
+1. Instalar el JDK 8
+    apt install openjdk-8-jre-headless
+
+
+
+
+
+2. Crear usuario para WildFly.
+    Creare un usuario para wildFly con este comando:
+sudo useradd -r -s /sbin/nologin wildfly
+
+-r (opcion para un usuario del sistema)
+-s (shell de inicio de sesion, que el usuario no puede iniciar sesion)
+
+compruebo que el usuario se ha creado, es el ultimo:
+cat /etc/passwd
+
+
+
+
+
+
+3. Descargar e instalar WidlFly 19.0.0 Final.
+3.3 Descargar el WildFly 19.0.0 Final
+Usare el comando:
+cd /opt
+wget https://download.jboss.org/wildfly/19.0.0.Final/wildfly-19.0.0.Final.tar.gz
+descomprimo el archivo descargado:
+tar xvfz wildfly-19.0.0.Final.tar.gz
+cambio la propiedad del archivo descomprimido a wildfly:
+chown wildfly:wildfly /opt/wildfly-19.0.0.Final
+inicio el servidor WildFly:
+cd /opt/wildfly-19.0.0.Final/bin
+ls
+bash standalone.sh
+
+ya tengo acceso http://127.0.0.1:8080
+
+
+
+
+
+
+4. Configurar systemd y el archivo wildfly.conf.
+
+crear mkdir /etc/windfly
+
+Hay qye copiar 3 archivos a cada su sitio
+cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf /etc/windfly/
+cp /opt/wildfly/docs/contrib/scripts/systemd/launch.sh /opt/windfly/bin/
+
+    Le ponemos el atributo ejecutable a los ficheros del directorio bin:
+    sudo sh -c 'chmod +x /opt/wildfly/bin/*.sh'
+
+cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
+
+despues de esto
+    systemctl daemon-reload
+    systemctl start wildfly
+    systemctl status wildfly
+
+
+
+
+5. Configurar la autenticación de Wildfly.
+
+Configurar la authentication de WildFly
+Estando en /opt/wildfly-19.0.0.Final/bin ejecuto comando:
+bash add-user.sh
+
+elegimos la apcion 
+a.) management user
+despues metemos el nombre de usuario y la contraseña,
+despues de reiniciar y acceder por el navegador, nos pide el usuario y la contraseña:
+.
+y entro en la consola de wildFly:
+
+despues de crear un usuario, pulso el enlace a "Administracion Console"
+
+FIN !!!
+
+
+
+
+
+
+
+
+
+
+
+PROBAMOS DE OTRA FORMA:
+
+1. Descargar e instalar WildFly
+Si no lo has hecho ya, descarga e instala WildFly 19:
+
+Descargar WildFly 19:
+
+bash
+Copiar código
+wget https://download.jboss.org/wildfly/19.1.0.Final/wildfly-19.1.0.Final.tar.gz
+Extraer WildFly:
+
+bash
+Copiar código
+sudo tar -xvzf wildfly-19.1.0.Final.tar.gz -C /opt
+sudo mv /opt/wildfly-19.1.0.Final /opt/wildfly
+Establecer permisos:
+
+bash
+Copiar código
+sudo chown -R $USER:$USER /opt/wildfly
+sudo chmod -R 755 /opt/wildfly
+2. Crear la configuración para systemd
+Ahora configuraremos systemd para que WildFly funcione como un servicio.
+
+a. Crear directorio de configuración:
+bash
+Copiar código
+sudo mkdir -p /etc/wildfly
+b. Crear y configurar wildfly.conf:
+Copia el archivo de configuración predeterminado y edítalo:
+
+bash
+Copiar código
+sudo cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf /etc/wildfly/
+sudo nano /etc/wildfly/wildfly.conf
+El archivo wildfly.conf define las variables de entorno para WildFly. Configúralo como sigue:
+
+bash
+Copiar código
+# Parámetros de configuración para WildFly
+WILDFLY_HOME="/opt/wildfly"
+WILDFLY_USER="wildfly"
+WILDFLY_MODE="standalone"
+WILDFLY_CONFIG="standalone.xml"
+WILDFLY_BIND="0.0.0.0"
+c. Crear usuario para WildFly:
+bash
+Copiar código
+sudo useradd -r -s /bin/false wildfly
+sudo chown -R wildfly:wildfly /opt/wildfly
+d. Copiar el script launch.sh:
+Este script se encarga de iniciar WildFly correctamente.
+
+bash
+Copiar código
+sudo cp /opt/wildfly/docs/contrib/scripts/systemd/launch.sh /opt/wildfly/bin/
+sudo chmod +x /opt/wildfly/bin/*.sh
+3. Crear el archivo del servicio systemd
+Copia el archivo predeterminado del servicio WildFly:
+
+bash
+Copiar código
+sudo cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
+Edita el archivo del servicio:
+
+bash
+Copiar código
+sudo nano /etc/systemd/system/wildfly.service
+Asegúrate de que el archivo tenga el siguiente contenido:
+
+ini
+Copiar código
+[Unit]
+Description=The WildFly Application Server
+After=network.target
+
+[Service]
+Type=idle
+User=wildfly
+Group=wildfly
+ExecStart=/opt/wildfly/bin/launch.sh
+StandardInput=null
+
+[Install]
+WantedBy=multi-user.target
+4. Configurar WildFly para administración remota
+Si deseas administrar WildFly desde otra máquina:
+
+Edita el archivo de configuración de WildFly:
+
+bash
+Copiar código
+sudo nano /opt/wildfly/standalone/configuration/standalone.xml
+Busca la sección <interfaces> y asegúrate de que la interfaz de administración (management) esté configurada para aceptar conexiones externas:
+
+xml
+Copiar código
+<interfaces>
+    <interface name="management">
+        <inet-address value="${jboss.bind.address.management:0.0.0.0}"/>
+    </interface>
+    <interface name="public">
+        <inet-address value="${jboss.bind.address:0.0.0.0}"/>
+    </interface>
+</interfaces>
+5. Recargar systemd y probar WildFly
+Recargar systemd:
+
+bash
+Copiar código
+sudo systemctl daemon-reload
+Iniciar el servicio WildFly:
+
+bash
+Copiar código
+sudo systemctl start wildfly
+Verificar el estado del servicio:
+
+bash
+Copiar código
+sudo systemctl status wildfly
+Si el servicio está funcionando correctamente, deberías ver algo como:
+
+yaml
+Copiar código
+● wildfly.service - The WildFly Application Server
+   Loaded: loaded (/etc/systemd/system/wildfly.service; enabled; vendor preset: disabled)
+   Active: active (running) since [fecha/hora]
+6. Acceso a la consola de administración
+Por defecto, la consola de administración estará disponible en:
+
+arduino
+Copiar código
+http://<IP-o-servidor>:9990
+Si accedes desde otra máquina, asegúrate de que el puerto 9990 esté abierto en el firewall.
+
+7. Agregar un usuario administrativo
+Ejecuta el script para agregar un usuario administrativo:
+
+bash
+Copiar código
+/opt/wildfly/bin/add-user.sh
+Sigue las instrucciones para crear un usuario con permisos de administrador. Luego, podrás usar este usuario para acceder a la consola de administración.
+
+Resumen
+Ahora puedes gestionar WildFly como un servicio systemd con los siguientes comandos:
+
+Recargar configuraciones systemd:
+
+bash
+Copiar código
+sudo systemctl daemon-reload
+Iniciar el servicio WildFly:
+
+bash
+Copiar código
+sudo systemctl start wildfly
+Verificar el estado:
+
+bash
+Copiar código
+sudo systemctl status wildfly
+Habilitar WildFly al iniciar el sistema:
+
+bash
+Copiar código
+sudo systemctl enable wildfly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
