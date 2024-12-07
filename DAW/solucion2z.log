@@ -129,56 +129,94 @@ FIN
 
 
 
-Apartado 5
-Pemitir el protocolo HTTPS en el virtualhost empresa-tarea-daw02
+Apartado 5 Pemitir el protocolo HTTPS en el virtualhost https://suzdalenko
+
+a.) creo una carpeta en /var/www/suzdalenko en cual echo > "hello world">index.html
+b.) creo file /etc/apache2/sites-available/suzdalenko.conf contenido:
+    <VirtualHost *:80>
+        DocumentRoot /var/www/suzdalenko
+        ServerName www.suzdalenko
+        ServerAlias suzdalenko
+    </VirtualHost>
+c.) editar /etc/hosts contenido:
+    127.0.0.1 suzdalenko
+
+Pemitir el protocolo HTTPS en el virtualhost empresa-tarea-daw02 -> suzdalenko
+En Debian y derivados, como Ubuntu, Apache posee por defecto en su instalación el fichero
+/etc/apache2/sites-available/default-ssl.conf, que contiene la configuración por defecto de SSL:
+ sudo nano /etc/apache2/sites-available/default-ssl.conf
+
+Donde:
+• SSLEngine on : Activa o desactiva SSL
+• SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem : Certificado digital del propio
+servidor Apache
+• SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key : Clave privada del servidor
+Apache.
+
 En primer lugar, nos aseguramos de que el módulo SSL esté habilitado:
  sudo a2enmod ssl
-
 Después, reiniciamos Apache para que el módulo SSL se active:
  sudo systemctl restart apache2
 
 Instalamos el paquete openssl, dependiendo del sistema operativo puede estar ya instalado:
  sudo apt install openssl
 
- Genera un certificado SSL autofirmado
- sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/1.key -out /etc/ssl/certs/2.crt
+Generamos el certificado y la clave privada de nuestra autoridad de certificación (AC) en un
+directorio de nuestra elección:
+ sudo mkdir /etc/apache2/ssl
+ cd /etc/apache2/ssl
+ sudo openssl req -new -nodes -keyout clave.key -out solicitud.csr
 
-Configura el Virtual Host para HTTPS
-nano /etc/apache2/sites-available/empresa-tarea-daw02.conf
+Parámetros del comando:
+• -new: Crea una nueva solicitud de certificado.
+• -nodes: Genera una clave privada sin cifrar (sin contraseña).
+• -keyout clave.key: Guarda la clave privada en clave.key.
+• -out solicitud.csr: Guarda la solicitud de certificado en solicitud.csr.
+Este comando genera dos archivos:
+• La clave privada con el que firmarmos nuestros certificados: clave.key
+• El certificado con la clave pública de la AC: solicitud.csr
+Pedirá algunos datos: nombre de empresa, país, contraseña, etc. La contraseña se puede omitir, pero
+por seguridad es conveniente crearla para utilizarla cuando firmemos un certificado SSL .
+El common name debe ser la URL de acceso: empresa-tarea-daw02.local
 
-<VirtualHost *:443>
-    ServerName empresa-tarea-daw02
-    DocumentRoot /var/www/empresa-tarea-daw02
-    SSLEngine on
-    SSLCertificateFile /etc/ssl/certs/empresa-tarea-daw02.crt
-    SSLCertificateKeyFile /etc/ssl/private/empresa-tarea-daw02.key
-    <Directory /var/www/empresa-tarea-daw02>
-        AllowOverride All
-    Require all granted
-    </Directory>
-</VirtualHost>
+Creamos el certificado SSL autofirmado:
+ sudo openssl x509 -in solicitud.csr -out certi.crt -req -signkey clave.key -days 365
 
-sudo a2ensite empresa-tarea-daw02.conf
-sudo systemctl restart apache2
-
-
-
-
-
-
-
-
+• -in empresa-tarea-daw02.csr: Especifica el archivo de solicitud de certificado.
+• -out empresa-tarea-daw02.crt: Crea el certificado y lo guarda en empresa-tarea-daw02.crt.
+• -req: Indica que se usará la solicitud de certificado para crear el certificado.
+• -signkey empresa-tarea-daw02.key: Firma el certificado con la clave privada empresa-tareadaw02.key.
+• -days 365: Especifica la duración del certificado (en días).
 
 
+Editamos la configuración SSL por defecto del archivo:
+    /etc/apache2/sites-available/suzdalenko.conf para indicar el certificado del servidor y su respectiva clave privada:
+ sudo nano /etc/apache2/sites-available/suzdalenko.conf
+Y añadimos:
+ <VirtualHost *:443>
+ DocumentRoot /var/www/suzdalenko
+ ServerName www.suzdalenko
+ ServerAlias suzdalenko
+ SSLEngine on
+ SSLCertificateFile /etc/apache2/ssl/certi.crt
+ SSLCertificateKeyFile /etc/apache2/ssl/clave.key
+ </VirtualHost>
 
+Nos aseguramos de habilitar el virtualhost:
+ sudo a2ensite suzdalenko.conf
+Y de que el fichero /etc/apache2/ports.conf incluya el valor Listen 443:
+ cat /etc/apache2/ports.conf
 
+Listen 80
+<IfModule ssl_module>
+Listen 443
+</IfModule>
+<IfModule mod_gnutls.c>
+Listen 443
+<IfModule>
+ sudo systemctl restart apache2
 
-
-
-
-
-
-
+ FIN
 
 
 
