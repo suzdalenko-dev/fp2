@@ -86,7 +86,6 @@ Creamos un fichero .htaccess dentro del directorio anterior:
  sudo nano /var/www/todo-empresa-tarea-daw02/delimitado/.htaccess
 
 Con el siguiente contenido:
-
     AuthType Basic
     AuthName "Acceso limitado"
     AuthUserFile /etc/apache2/passwords
