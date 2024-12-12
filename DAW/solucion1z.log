@@ -80,15 +80,15 @@ Extrae el archivo:
 sudo tar -xvzf apache-tomcat-10.1.33.tar.gz -C /opt/  (-C especefica el directorio destino)
 Renombra el directorio para simplificar:
 
+eliminar la carpeta tomcat primero
 
 sudo mv /opt/apache-tomcat-10.1.33 /opt/tomcat (con el mv hay que consegir que la estuctura sea /opt/tomcat/bin )
 5. Configurar Permisos
 Cambia el propietario del directorio /opt/tomcat al usuario tomcat:
 
-
-sudo chown -R tomcat:tomcat /opt/tomcat  
 Ajusta los permisos:
 
+sudo chown -R tomcat:tomcat /opt/tomcat  
 sudo chmod -R 755 /opt/tomcat
 
 Crear un Servicio Systemd para Tomcat
