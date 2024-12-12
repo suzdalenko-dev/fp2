@@ -138,12 +138,22 @@ b.) creo file /etc/apache2/sites-available/suzdalenko.conf contenido:
         ServerName www.suzdalenko.local
         ServerAlias suzdalenko.local
     </VirtualHost>
+
+    <VirtualHost *:443>
+        DocumentRoot /var/www/suzdalenko
+        ServerName www.suzdalenko.local
+        ServerAlias suzdalenko.local
+        SSLEngine on
+        SSLCertificateFile /etc/apache2/ssl/empresa.crt 
+        SSLCertificateKeyFile /etc/apache2/ssl/empresa.key
+    </VirtualHost>
+
     a2ensite suzdalenko.conf
     systemctl reload apache2
 c.) editar /etc/hosts contenido:
     127.0.0.1 suzdalenko.local
 
-solucion buena en el PDF
+solucion buena en el PDF , IMPORTANTE A LA HORA DE CREAR CERTIFICADO INDICAR EL HOST , lo esta escrito en el PDF !!!
 
  FIN
 
