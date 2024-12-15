@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .container1 {
+            display: grid;
+            grid-template-columns: 100px 200px auto; /* 3 columnas: fija, fija y adaptable */
+            grid-template-rows: 50px 1fr 2fr;        /* 3 filas: fija, proporcional, doble proporcional */
+            gap: 11px; /* Espacio entre bloques */
+        }
+        .block{
+            background-color: antiquewhite;
+            text-align: center;
+            padding-top: 11px;
+        }
+        .container2{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    </style>
+    <div class="container1">
+        <div class="block">A</div>
+        <div class="block">B</div>
+        <div class="block"><div class="container2">
+            <div class="block">AAA</div>
+            <div class="block">BBB</div>
+            <div class="block">CCC</div>
+            <div class="block">DDD</div>
+        </div></div>
+        <div class="block">D</div>
+    </div>
+
+    <div class="container2">
+        <div class="block">AAA</div>
+        <div class="block">BBB</div>
+        <div class="block">CCC</div>
+        <div class="block">DDD</div>
+    </div>
+</body>
+</html>
