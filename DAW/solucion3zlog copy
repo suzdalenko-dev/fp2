@@ -64,6 +64,8 @@ Crear el archivo del servicio systemd:
 sudo cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
 Editar el archivo del servicio:
 
+A partir de aqui ya funciona el wildfly
+
 sudo nano /etc/systemd/system/wildfly.service
 Asegúrate de que contenga:
 
