@@ -1,0 +1,12 @@
+como desinstalar apache2:
+
+
+
+sudo systemctl stop apache2
+
+sudo apt remove apache2
+
+sudo apt purge apache2
+
+sudo apt autoremove
+

@@ -1,0 +1,23 @@
+vboxuser no esta en el archivo sudoers
+
+su (con esto vale para entrar en root)
+sudo usermod -aG sudo vboxuser
+sudo visudo
+vboxyser ALL=(ALL:ALL) ALL
+
+-------------------------------------------------------------
+
+Pasos para instalar las Guest Additions en el invitado Ubuntu:
+Abre una terminal.
+Navega hasta el punto de montaje:
+
+
+cd /media/$USER/VBox_GAs_*
+(ajusta la ruta según la que corresponda)
+
+Ejecuta el instalador con privilegios de superusuario:
+
+sudo sh ./VBoxLinuxAdditions.run
+Cuando termine la instalación, reinicia la máquina virtual:
+
+sudo reboot

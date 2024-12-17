@@ -1,0 +1,37 @@
+Funciones de utilidad para objetos y clases en PHP
+Función	Ejemplo	Significado
+get_class()	
+echo "La clase es: " . get_class($p);
+Devuelve el nombre de la clase del objeto.
+class_exists	
+if (class_exists('Producto') {
+    $p = new Producto();
+    . . . 
+}
+Devuelve true si la clase está definida o false en caso contrario.
+get_declared_classes()	
+print_r(get_declared_classes());
+Devuelve un array con los nombres de las clases definidas.
+class_alias()	
+class_alias('Producto', 'Articulo');
+$p = new Articulo();
+Crea un alias para una clase.
+get_class_methods()	
+print_r(get_class_methods('Producto'));
+Devuelve un array con los nombres de los métodos de una clase que son accesibles desde dónde se hace la llamada.
+method_exists()	
+if (method_exists('Producto', 'vende') {
+    …
+}
+Devuelve true si existe el método en el objeto o la clase que se indica, o false en caso contrario, independientemente de si es accesible o no.
+get_class_vars()	
+print_r(get_class_vars('Producto'));
+Devuelve un array con los nombres de los atributos de una clase que son accesibles desde dónde se hace la llamada.
+get_object_vars()	
+print_r(get_object_vars($p));
+Devuelve un array con los nombres de los métodos de un objeto que son accesibles desde dónde se hace la llamada.
+property_exists()	
+if (property_exists('Producto', 'codigo') {
+    . . .
+}
+Devuelve true si existe el atributo en el objeto o la clase que se indica, o false en caso contrario, independientemente de si es accesible o no.

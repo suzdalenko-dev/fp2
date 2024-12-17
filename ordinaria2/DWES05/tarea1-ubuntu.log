@@ -1,0 +1,17 @@
+Ubuntu composer como instalar y php correspondiente:
+    Dependencias obligatorias para instalar con Composer: 
+    • philo/laravel-blade como motor de plantillas. 
+    • fakerphp/faker para generar datos aleatorios de prueba. 
+    • autoload con optimizador.
+
+
+sudo apt update && sudo apt upgrade
+sudo apt install php-cli php-mbstring php-xml php-curl unzip
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+composer init
+composer require philo/laravel-blade
+composer require fakerphp/faker
+composer dump-autoload --optimize
+
+php -S 0.0.0.0:80
