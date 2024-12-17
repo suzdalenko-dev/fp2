@@ -152,3 +152,64 @@ PASOS DEL CÁLCULO
                 Como 1 KByte (KB) = 1024 bytes y 1 Mbyte (MB) = 1024 KB
                 EspacioA = 353,110081220162 KB
                 EspacioB = 1532,595838629177 KB = 1,496675623661306 MB
+
+
+
+Cálculo del tamaño (ancho y alto) en centímetros queocupará en el papel una imagen
+Conocidos su tamaño en píxeles y la resolución con la que se escanea la imagen
+
+    Cálculo del tamaño de una imagen según su resolución
+    DATOS DE PARTIDA DE LA IMAGEN
+        ANCHO: 60 píxeles
+        ALTO: 60 píxeles
+
+    SUPUESTOS A CALCULAR
+    Supuesto A
+    Se escanea con una resolución de 72 píxeles por pulgada (72 ppp).
+    Supuesto B
+    Se escanea con una resolución de 150 píxeles por pulgada (150 ppp).
+
+    RESULTADOS A OBTENER (ancho x alto)
+        Supuesto A
+        La imagen ocupa 2,12 x 2,12 cm en el papel.
+        Supuesto B
+        La imagen ocupa 1 x 1 cm en el papel
+
+    PASOS DEL CÁLCULO
+        1. ¿Cuántas pulgadas tiene de ancho y de alto?
+        RAZONAMIENTO
+        Sabiendo la resolución podemos calcular lo que ocupa en pulgadas una imagen. Para ello basta dividir la medida de ancho y de alto en píxeles entre la resolución.
+        Empleamos las fórmulas siguientes:
+        Anchoenpulgadas=Anchoenpíxeles / Resolución
+        Altoenpulgadas=Altoenpíxeles / Resolución
+        Si realizamos un redondeo de decimales será más fácil calcular pero el resultado final será aproximado. 
+            Aquí se realizará el cálculo con todos los decimales y se realizará un único redondeo al final.
+
+        2. ¿Cuántos centímetros tiene de ancho y de alto?
+        RAZONAMIENTO (continuación)
+        Ya sabemos la equivalencia entre la pulgada y los centímetros:
+        1 pulgada = 2,54 centímetros
+        Una vez calculado el ancho y el alto en pulgadas pasamos las pulgadas a centímetros multiplicando por 2,54.
+        SUPUESTOS A CALCULAR
+        
+        Supuesto A (Resolución: 72 ppp)
+        Ancho = 60px : 72ppp x 2,54 = 2,116666666666667 cm
+        Alto = Ancho = 2,12 cm (redondeado)
+        
+        Supuesto B (Resolución: 150 ppp)
+        Ancho = 60px : 150ppp x 2,54 = 1,016 cm
+        Alto = Ancho = 1,016 cm
+
+    CONCLUSIONES
+        Cuanto mayor sea la resolución de una imagen:
+        Ocupará más espacio en el disco.
+        Ocupará menos espacio en el papel.
+
+
+    TRABAJO PARA MI !!!
+    Si has leído con detenimiento las presentaciones del apartado anterior podrás comprobar fácilmente 
+        que una fotografía en color realizada con una cámara de fotos de 12 megapíxeles, 
+        o lo que es lo mismo, 
+        una imagen de 4000 píxeles de ancho por 3000 píxeles de alto, 
+        tendría que ocupar en disco un poco más de 34 MB. 
+        ¿Realmente ocupa tanto? Si fuera así, ¿cuántas fotografías nos cabrían en la memoria de 4 GB de la cámara?
