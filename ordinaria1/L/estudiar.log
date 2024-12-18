@@ -1,0 +1,45 @@
+Posibles métodos para descubrir las credenciales de la base de datos:
+1. Intercepción del tráfico de red (Sniffing)
+Puedes usar herramientas para capturar y analizar el tráfico de red que genera la aplicación cuando inicia sesión o consulta la base de datos.
+
+Herramientas recomendadas:
+
+Wireshark: Captura todo el tráfico de red que pasa por tu equipo. Puedes filtrar los paquetes relacionados con el protocolo de la base de datos (por ejemplo, TCP/IP, SQL, etc.).
+Fiddler: Herramienta que actúa como intermediario para inspeccionar peticiones HTTP/HTTPS.
+tcpdump (Linux) o similares.
+Cómo usarlo:
+
+Inicia Wireshark y filtra por puertos específicos (por ejemplo, 3306 para MySQL o 1433 para SQL Server).
+Abre la aplicación LIBRA y monitorea el tráfico.
+Busca paquetes de datos que contengan credenciales o consultas SQL en texto claro (si no están cifradas).
+Nota: Si la conexión a la base de datos usa encriptación (como TLS), no verás las credenciales en texto claro.
+
+2. Monitoreo de procesos locales
+Puedes monitorear los procesos que se ejecutan en tu máquina cuando inicias la aplicación LIBRA. Esto puede darte pistas sobre cómo se conecta la aplicación a la base de datos.
+
+Herramientas recomendadas:
+
+Process Monitor (ProcMon): Una herramienta de Sysinternals que monitorea las operaciones de archivos, registro y red en tiempo real.
+Process Explorer: Otra herramienta de Sysinternals para analizar procesos y sus conexiones.
+Cómo usarlo:
+
+Inicia Process Monitor.
+Configura un filtro para el proceso de la aplicación LIBRA.
+Monitorea las conexiones de red y busca rutas o cadenas de conexión hacia la base de datos.
+3. Inspección del archivo de configuración local
+Muchas aplicaciones de escritorio almacenan los parámetros de conexión a la base de datos en archivos de configuración (ej. .ini, .xml, .json o incluso en el Registro de Windows).
+
+Busca en los directorios de instalación de LIBRA o en las carpetas:
+
+*C:\ProgramData*
+*C:\Users\TuUsuario\AppData*
+Carpeta de instalación principal de LIBRA.
+También revisa el Registro de Windows usando regedit en busca de claves relacionadas con LIBRA o EDISA.
+
+4. Descompilación o análisis de la aplicación
+Si la aplicación LIBRA no cifra sus credenciales o conexiones, podrías descompilar su código binario para analizar cómo construye la cadena de conexión.
+
+Herramientas recomendadas:
+dnSpy: Para aplicaciones .NET (por si LIBRA está construida con .NET Framework).
+Ghidra o IDA Pro: Desensambladores y descompiladores avanzados.
+Este enfoque es más complejo, pero puede revelar hardcoded credentials o pistas de cómo se conecta la aplicación.
