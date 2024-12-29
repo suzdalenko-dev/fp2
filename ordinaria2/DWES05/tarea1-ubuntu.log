@@ -15,3 +15,29 @@ composer require fakerphp/faker
 composer dump-autoload --optimize
 
 php -S 0.0.0.0:80
+
+
+
+en ubuntu necesito instalar php, mysql, phpmyadmin
+    sudo apt update
+    sudo apt install php libapache2-mod-php php-mysql
+    sudo apt install mysql-server
+    systemctl start mysql
+    systemctl status mysql
+        CREATE USER 'alexey'@'%' IDENTIFIED BY 'svoboda';
+        GRANT ALL PRIVILEGES ON *.* TO 'alexey'@'%' WITH GRANT OPTION;
+        FLUSH PRIVILEGES;
+        SELECT User, Host, authentication_string FROM mysql.user;
+        EXIT;
+        mysql -u alexey -p
+
+
+
+
+despues composer y Dependencias obligatorias para instalar con Composer: 
+    • philo/laravel-blade como motor de plantillas. 
+    • fakerphp/faker para generar datos aleatorios de prueba. 
+    • autoload con optimizador.
+
+
+una vez unstalado todo esto crear archivo login.php

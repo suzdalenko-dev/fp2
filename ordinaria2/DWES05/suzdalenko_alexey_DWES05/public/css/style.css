@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Consolas, 'san-serif';
+}
+.wrapper{
+    width: 40%;
+    margin-left: 30%;
+    border: 11px solid salmon;
+}
+.login{
+    background-color: rgb(237, 237, 237);
+    padding: 11px;
+}
+h2{
+    font-size: 22px;
+}
+.login_form{
+    width: 90%;
+    margin-left: 5%;
+  
+}
+.input{
+    width: 100%;
+    display: block;
+    margin-top: 11px;
+    font-size: 17px;
+}
+
+.submit{
+    margin-top: 22px;
+    margin-left: 80%;
+    margin-bottom: 22px;
+    background-color: green;
+    color: white;
+    padding: 11px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+}
+.submit:hover{
+    cursor: pointer;
+}
+
+
+.instalation{
+    text-align: center;
+    width: 44%;
+    height: 111px;
+    margin: 0 auto;
+    background-color: salmon;
+    padding: 11px;
+}
+.input_instalacion{
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 11px;
+    outline: none;
+    margin-top: 22px;
+}
+.input_instalacion:hover{
+    cursor: pointer;
+}
+
+
+.list_books{
+    background-color: salmon;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+.search_books{
+    width: 100%;
+    margin: 0 auto;
+    background-color: salmon;
+}
+.add_book{
+    background-color: green;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 11px;
+    color: white;
+}
+.add_book:hover{
+    cursor: pointer;
+}   
+.books{
+    background-color: black;
+    color: white;
+}
+table{
+    color: white;
+    width: 100%;
+    margin-top: 11px;
+}
+th, td{
+    text-align: left;
+}
+
+.create_book{
+    text-align: center;
+    background-color: salmon;
+}
+.new_form_book{
+    padding: 11px;
+    background-color: salmon;
+}
+label{
+    display: block;
+}
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px; /* Space between columns */
+    padding: 20px;
+    background-color: #ff7f50;
+}
+.form-group {
+    display: grid;
+    gap: 5px; /* Spacing between label and input */
+}
+.input_add{
+    height: 32px;
+}
+.three_columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ff7f50;
+}
+.finish{
+    padding: 20px;
+}
+.input_add_button{
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 11px;
+    color: white;
+}
+.create{
+    background-color: blue;
+}
+.clear{
+    background-color: green;
+}
+.back{
+    background-color: rgb(1, 90, 138);
+}
+.input_add_button:hover{
+    cursor: pointer;
+}
