@@ -15,5 +15,9 @@
             {{ $message }}
         </div>
     </form>
+    <div>
+        <p>usuario: Alexey</p>
+        <p>passowrd: Password123</p>
+    </div>
 </div>
 @endsection

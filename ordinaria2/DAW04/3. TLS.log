@@ -1,0 +1,47 @@
+sudo apt install proftpd openssl
+
+en /etc/proftpd/proftpd.conf descomentar la linea
+    Include /etc/proftpd/tls.conf
+    
+mkdir -p /etc/proftpd/ssl
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/proftpd/ssl/proftpd.key.pem -out /etc/proftpd/ssl/proftpd.cert.pem
+
+Country Name (2 letter code) [AU]:AU
+State or Province Name (full name) [Some-State]:s
+Locality Name (eg, city) []:s
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:s
+Organizational Unit Name (eg, section) []:s
+Common Name (e.g. server FQDN or YOUR name) []:s
+Email Address []:s
+root@ub18:/etc/proftpd# chmod 600 /etc/proftpd/ssl/proftpd.key.pem
+root@ub18:/etc/proftpd# chmod 644 /etc/proftpd/ssl/proftpd.cert.pem
+root@ub18:/etc/proftpd# nano /etc/proftpd/tls.conf
+
+chmod 600 /etc/proftpd/ssl/proftpd.key.pem
+chmod 644 /etc/proftpd/ssl/proftpd.cert.pem
+
+root@ub18:/etc/proftpd# systemctl restart proftpd
+
+nano /etc/proftpd/tls.conf
+
+<IfModule mod_tls.c>
+  TLSEngine on
+  TLSProtocol TLSv1.2
+  TLSCipherSuite HIGH:!aNULL:!MD5
+  TLSOptions NoSessionReuseRequired
+  TLSRSACertificateFile /etc/proftpd/ssl/proftpd.cert.pem
+  TLSRSACertificateKeyFile /etc/proftpd/ssl/proftpd.key.pem
+  TLSVerifyClient off
+</IfModule>
+
+systemctl restart proftpd
+
+
+
+root@ub18:/etc/proftpd# proftpd -t
+Checking syntax of configuration file
+Syntax check complete.
+root@ub18:/etc/proftpd# systemctl status proftpd.service
+* proftpd.service - LSB: Starts ProFTPD daemon
+

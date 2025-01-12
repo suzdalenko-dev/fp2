@@ -1,0 +1,166 @@
+Step 1: Install ProFTPD
+  apt install proftpd -y
+  
+
+Step 2: Configure ProFTPD for Virtual Users
+  nano /etc/proftpd/proftpd.conf
+  AuthOrder mod_auth_file.c
+  AuthUserFile /etc/proftpd/ftpd.passwd
+  RequireValidShell off
+
+Step 3: Create the Virtual User
+  touch /etc/proftpd/ftpd.passwd
+  chmod 600 /etc/proftpd/ftpd.passwd
+  ftpasswd --passwd --name=direccion --uid=1001 --gid=1001 --home=/home/ftpusers/direccion --shell=/bin/false
+  ftpasswd --passwd --name=direccion --uid=1001 --gid=1001 --home=/home/ftpusers/direccion --shell=/bin/false
+
+
+Step 4: Set Up the User's Home Directory
+  mkdir -p /home/ftpusers/direccion
+  chown nobody:nogroup /home/ftpusers/direccion
+  chmod 755 /home/ftpusers/direccion
+
+Step 5: Configure VirtualHost
+  nano /etc/proftpd/conf.d/virtual.conf
+  nano /etc/proftpd/proftpd.conf
+  Include /etc/proftpd/conf.d/*
+
+  <VirtualHost 192.168.100.250>
+    ServerName "ftp.empresa-suzdal.local"
+    DefaultRoot /home/ftpusers/direccion
+    RequireValidShell off
+    AuthUserFile /etc/proftpd/ftpd.passwd
+</VirtualHost>
+
+Step 6: Update DNS or /etc/hosts
+  nano /etc/hosts
+  192.168.100.250 ftp.empresa-suzdal.local
+
+Step 7: Restart ProFTPD
+  systemctl restart proftpd
+  systemctl status proftpd
+
+
+
+
+
+
+
+
+
+
+
+
+OLD ------------------------------------------------------------------
+
+nano /etc/proftpd/proftpd.conf
+
+<VirtualHost 192.168.100.250>
+    ServerName "ftp.empresa-tarea-daw04.local"
+    DefaultRoot /var/ftp/todo-empresa-tarea-daw04
+    AllowOverwrite on
+    RequireValidShell off
+    TransferLog /var/log/proftpd/empresa-transfer.log
+    AuthUserFile /etc/proftpd/passwd
+    AuthGroupFile /etc/proftpd/group
+    <Limit LOGIN>
+        AllowAll
+    </Limit>
+</VirtualHost>
+
+mkdir /etc/proftpd
+apt install apache2
+htpasswd -c /etc/proftpd/passwd direccion
+
+mkdir -p /var/ftp/todo-empresa-tarea-daw04
+useradd -m -d /var/ftp/todo-empresa-tarea-daw04 -s /bin/false direccion
+chown -R direccion:direccion /var/ftp/todo-empresa-tarea-daw04
+chmod -R 775 /var/ftp/todo-empresa-tarea-daw04
+
+systemctl restart proftpd                             Si ves las credenciales del usuario direccion allí, significa que ahora es un usuario virtual.
+
+
+AHORA QUEDA CONFIGURAR EL ACHIVO HOSTS Y EL DE IP ADDRESS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Crea el directorio todo-empresa-tarea-daw04 que será accesible desde el servidor FTP:
+  mkdir -p /var/ftp/todo-empresa-tarea-daw04
+  useradd -m -d /var/ftp/todo-empresa-tarea-daw04 -s /bin/false direccion                     -m: Crea el directorio de inicio si no existe, -d /var/ftp/todo-empresa-tarea-daw04: Especifica el directorio raíz para el usuario, -s /bin/false: Deshabilita el acceso shell, útil para usuarios de FTP.
+
+
+  chown -R direccion:direccion /var/ftp/todo-empresa-tarea-daw04
+  chmod -R 775 /var/ftp/todo-empresa-tarea-daw04
+
+  passwd direccion                                                                             establecer la contraseña
+
+
+Crea un usuario virtual llamado direccion: 
+Utiliza el comando ftpasswd para crear un usuario virtual que apunte al directorio /var/ftp/todo-empresa-tarea-daw04
+Se te pedirá una contraseña para el usuario direccion. Memoriza esta contraseña.
+  ftpasswd --passwd --name=direccion --home=/var/ftp/todo-empresa-tarea-daw04 --shell=/bin/false --uid=1001 --gid=1001
+
+Edita el archivo principal de configuración de ProFTPD:
+  nano /etc/proftpd/proftpd.conf
+Asegúrate de añadir la siguiente línea para habilitar usuarios virtuales:
+  AuthUserFile /etc/proftpd/ftpd.passwd
+Guarda y cierra el archivo.
+
+
+nano /etc/proftpd/virtual.conf o nano /etc/proftpd/proftpd.conf
+
+<VirtualHost 192.168.100.250>
+    ServerName "ftp.empresa-tarea-daw04.local"
+    DefaultRoot /var/ftp/todo-empresa-tarea-daw04
+    AllowOverwrite on
+    RequireValidShell off
+    TransferLog /var/log/proftpd/empresa-transfer.log
+</VirtualHost>
+
+
+nano /etc/netplan/01-netcfg.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      addresses:
+        - 192.168.250.250/24
+        - 192.168.100.250/24  # Añade esta línea para la segunda IP
+      gateway4: 192.168.250.39 # puerta de enlace de mi equipo anfitrión, y el la red NAT => Adaptador puente !!!!
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+
+
+netplan apply
+
+nano /etc/hosts
+  192.168.100.250   ftp.empresa-tarea-daw04.local
+
+si no funciona:
+  ip addr add 192.168.100.250/24 dev enp0s3
+  ip route add default via 192.168.100.1
+
+

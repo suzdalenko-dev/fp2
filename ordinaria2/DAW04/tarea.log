@@ -1,0 +1,39 @@
+Se pide:
+1. Instalar un servidor FTP: ProFTPD (proftpd).
+2. Configurar el servidor ProFTPD con:
+1. El usuario virtual: direccion con permisos de escritura.
+2. Un virtualhost basado en IP que permita el acceso, mediante ftp, al
+directorio del servidor ftp: todo-empresa-tarea-daw04
+3. El cifrado TLS Explícito para asegurar la comunicación
+con empresa-tarea-daw04
+3. Instalar el cliente FTP gráfico FileZilla (filezilla)
+4. Configurar el servidor ProFTPD con:
+1. Una plantilla en el Gestor de Sitios de nombre EMPRESA que
+contenga la configuración pedida en el enunciado.
+NOTAS IMPORTANTES:
+
+• Para la solución de la tarea tener en cuenta que la empresa se identifica
+mediante la URL: ftp.empresa-tarea-daw04.local ó la IP 192.168.100.250.
+(Ssustituir 192.168.100.250 por la dirección IP de la máquina)
+
+
+• Para la solución de la tarea simular un archivo de subida de gran tamaño
+mediante un archivo de texto:
+o De nombre subir.txt que contenga el texto 'ARCHIVO PESADO'.
+o Que será transferido a la raíz del directorio todo-empresa-tareadaw04
+
+
+
+Recomendaciones
+
+    Ve realizando la tarea de forma secuenciada y al mismo tiempo ve documentando la solución de la misma.
+    Ten cuidado al modificar el archivo /etc/proftpd/proftpd.conf ya que la línea a descomentar:
+        include /etc/proftpd/virtuals.con
+        no coincide con el nombre del fichero esperado (virtuals.conf) en /etc/proftpd. Por
+        lo tanto se recomienda dejar la línea como
+        include /etc/proftpd/virtuals.conf
+
+
+apellido1_apellido2_nombre_DAW04_Tarea
+
+

@@ -1,0 +1,17 @@
+ftp> !ls
+    list files in donor example.txt  anotherfile.txt
+
+ftp> lcd
+    Local donor directory now: /home/vboxuser
+
+ftp> lcd /home
+    change fpt donor directory
+
+ftp> pwd
+    show receiver current uploading directory
+
+ftp> ls
+    show list data in receiver uploading directory
+
+put <filename>: Uploads the file from your local directory to the current FTP remote directory.
+get <filename>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Gestión Dinámica de Usuarios</title>
+</head>
+
+<body>
+    <header>
+        <h1>Gestión Dinámica de Usuarios</h1>
+        <button id="toggle-theme">Modo Oscuro</button>
+    </header>
+    <main>
+        <section id="form-section">
+            <h2>Agregar Usuario</h2>
+            <form id="user-form">
+                <input type="text" id="name" placeholder="Nombre" required>
+                <input type="email" id="email" placeholder="Correo Electrónico" required>
+                <button type="button" id="button_add">Agregar</button>
+            </form>
+        </section>
+        <section id="filter-section">
+            <h2>Filtrar Usuarios</h2>
+            <input type="text" id="filter" placeholder="Buscar por nombre">
+        </section>
+        <section id="table-section">
+            <h2>Lista de Usuarios</h2>
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo Electrónico</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="table_users">
+                </tbody>
+            </table>
+            <p id="user-count">Total de usuarios: 0</p>
+            <button id="clear-all">Borrar Todo</button>
+        </section>
+        <p id="message"></p>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
